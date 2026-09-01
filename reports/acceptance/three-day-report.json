@@ -1,0 +1,59 @@
+{
+  "version": "story-v1",
+  "startedAt": "2026-09-01T19:47:42.802Z",
+  "completedAt": "2026-09-01T20:14:13.604Z",
+  "seed": 2105687575,
+  "genre": "modern_mystery",
+  "storyId": "66a75a6f-87f0-42c7-8f9b-cea0d60895b4",
+  "title": "三日验收故事：缺页的签字",
+  "provider": "codex-app-server",
+  "model": "gpt-5.6-luna",
+  "promptVersion": 1,
+  "autoplayStart": 45,
+  "autoplayTarget": 4365,
+  "finalClock": 4365,
+  "autoplayScenes": 12,
+  "totalScenes": 13,
+  "factCount": 92,
+  "stageProposalsReviewed": 1,
+  "choicePauses": 5,
+  "pauseReasons": [
+    "当前阶段需要玩家决定：重大或不可逆变化必须由玩家确认",
+    "在已保全原始资料并整理旁证后，林砚下一步优先核查哪条可撤回线索？",
+    "当前阶段需要玩家决定：重大或不可逆变化必须由玩家确认",
+    "当前阶段需要玩家决定：不得直接判定任何人有罪；不得让主角替玩家决定是否公开缺页；第一阶段结束时，是否公开已核实线索或继续保密由玩家决定",
+    "阶段时间边界已到，请审核下一阶段提案。",
+    "当前阶段需要玩家决定：重大或不可逆变化必须由玩家确认"
+  ],
+  "heroine": "苏晚",
+  "heroineScenes": 10,
+  "restarted": true,
+  "restartDurationMs": 330,
+  "hashes": {
+    "stateHash": "9b816139dd27228a0ed009d0c5ee97082be797d5e25a76ff773ef70e4847f80a",
+    "replayHash": "9b816139dd27228a0ed009d0c5ee97082be797d5e25a76ff773ef70e4847f80a",
+    "matches": true
+  },
+  "assertions": {
+    "exact4320": true,
+    "atLeast10Scenes": true,
+    "stageProposalReviewed": true,
+    "heroineParticipatedTwice": true,
+    "noPending": true,
+    "noFailures": true,
+    "noDuplicateScenes": true,
+    "noDuplicateFacts": true,
+    "everyFactTraceable": true,
+    "noGenreLeak": true,
+    "replayHashMatches": true,
+    "restarted": true,
+    "boundedRestart": true,
+    "noUnhandledBrowserErrors": true,
+    "mcpAndWebSameProtocol": true,
+    "choicePauseObserved": true
+  },
+  "notes": [
+    "在至少 2160 分钟处用 330 ms 完成服务与 Provider 重启，恢复后无重复场景。"
+  ],
+  "finalStateDigest": "d0e8216e8a8ddc3908b8da71ee718cb2945d3e52640e6147fddce6687981f222"
+}

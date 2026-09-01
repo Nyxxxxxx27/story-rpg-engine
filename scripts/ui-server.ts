@@ -1,0 +1,12 @@
+import { rm } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { createServer as createVite } from 'vite';
+import { createStoryServer } from '../apps/api/server.ts';
+const data = resolve('.data/ui-test'); await rm(data, { recursive: true, force: true }); process.env.STORY_DATA_DIR = data;
+let close = async () => {}; const { app } = await createStoryServer({ logger: false });
+app.post('/__test/stop', async (_request, reply) => { reply.send({ ok: true }); setTimeout(() => void close(), 100); });
+await app.listen({ host: '127.0.0.1', port: 4310 });
+const vite = await createVite({ configFile: resolve('vite.config.ts') }); await vite.listen();
+let closing = false; close = async () => { if (closing) return; closing = true; try { await vite.close(); await app.close(); } finally { process.exit(0); } };
+process.on('SIGINT', () => void close()); process.on('SIGTERM', () => void close());
+console.log('UI test servers ready');

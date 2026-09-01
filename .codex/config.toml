@@ -1,0 +1,8 @@
+[mcp_servers.story_rpg]
+command = "node"
+args = ["--import", "tsx", "apps/mcp/main.ts"]
+startup_timeout_sec = 20
+tool_timeout_sec = 1800
+
+[mcp_servers.story_rpg.env]
+STORY_API_URL = "http://127.0.0.1:4310/api/v2"
