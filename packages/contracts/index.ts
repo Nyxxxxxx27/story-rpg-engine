@@ -4,6 +4,7 @@ export const idSchema = z.string().min(1).max(100).regex(/^[a-zA-Z0-9][a-zA-Z0-9
 export const uuidSchema = z.string().uuid();
 export const genreSchema = z.enum(['cultivation', 'western_fantasy', 'science_fiction', 'modern_mystery', 'custom']);
 export const providerSchema = z.enum(['codex', 'openai', 'deterministic']);
+export const polishModeSchema = z.enum(['off', 'standard']);
 
 export const storyWorldConfigSchema = z.object({
   title: z.string().trim().min(1).max(80),
@@ -17,6 +18,7 @@ export const storyWorldConfigSchema = z.object({
   storyPacks: z.array(idSchema).max(12).default([]),
   advancedPrompt: z.string().max(12000).default(''),
   provider: providerSchema.default('codex'),
+  polishMode: polishModeSchema.default('standard'),
 }).strict();
 export type StoryWorldConfig = z.infer<typeof storyWorldConfigSchema>;
 
@@ -144,6 +146,9 @@ export const narrationSchema = z.object({
 }).strict();
 export type Narration = z.infer<typeof narrationSchema>;
 
+export const prosePolishSchema = z.object({ prose: z.string().min(1).max(8000) }).strict();
+export type ProsePolish = z.infer<typeof prosePolishSchema>;
+
 export const sceneSchema = z.object({
   id: uuidSchema,
   turnId: uuidSchema,
@@ -163,7 +168,7 @@ export type Scene = z.infer<typeof sceneSchema>;
 export const turnSourceSchema = z.enum(['web', 'codex', 'autoplay', 'test']);
 export const turnStatusSchema = z.enum(['queued', 'assembling', 'directing', 'reviewing', 'repairing', 'committing', 'narrating', 'summarizing', 'completed', 'waiting_player', 'failed']);
 export type TurnStatus = z.infer<typeof turnStatusSchema>;
-export const turnStepNameSchema = z.enum(['assembling', 'directing', 'continuity', 'stage', 'agency', 'character', 'pack', 'repairing', 'committing', 'narrating', 'summarizing']);
+export const turnStepNameSchema = z.enum(['assembling', 'directing', 'continuity', 'stage', 'agency', 'character', 'pack', 'repairing', 'committing', 'narrating', 'polishing', 'summarizing']);
 export const turnStepSchema = z.object({ id: uuidSchema, name: turnStepNameSchema, agentRole: z.string().max(100), status: z.enum(['running', 'completed', 'failed']), summary: z.string().max(800), startedAt: z.number().int(), completedAt: z.number().int().nullable() }).strict();
 export type TurnStep = z.infer<typeof turnStepSchema>;
 

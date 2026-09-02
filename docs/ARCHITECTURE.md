@@ -19,11 +19,11 @@ flowchart LR
 
 ## Commit boundary
 
-Agents cannot write database state. Director returns `ScenePlan`; reviewers return `AgentReview`. After all checks pass, the transaction committer applies the allowlisted `StateChange` union and emits canonical facts with structured payloads and source IDs. Narrator then reads the committed projection and creates prose. A crash before commit safely repeats planning; a crash after commit resumes at narration or summarization without another scene insert.
+Agents cannot write database state. Director returns `ScenePlan`; reviewers return `AgentReview`. After all checks pass, the transaction committer applies the allowlisted `StateChange` union and emits canonical facts with structured payloads and source IDs. Narrator then reads the committed projection and creates a public draft. When enabled, Polish Agent receives only that committed draft and returns `prose`; a deterministic guard rejects changes to people, place, numbers, dialogue presence, event signals or excessive length before the public-output sanitizer runs. Title, summary, choices and world state never enter the polishing output schema. A crash before commit safely repeats planning; a crash after commit resumes at narration, polishing or summarization without another scene insert.
 
 ## Context policy
 
-The composer includes immutable engine rules, world config, versioned advanced Prompt, story packs, current stage, character records, up to eight scene summaries, up to 24 relevant facts, current input and output Schema. The protagonist and core cast always receive compact state. Only present characters receive private profile, drives and fears.
+The composer uses XML visibility boundaries around immutable engine rules, world config, versioned advanced Prompt, story packs, current stage, character records, up to eight scene summaries, up to 24 relevant facts, current input and output Schema. Private engine context is never a public output field. The protagonist and core cast always receive compact state. Only present characters receive private profile, drives and fears.
 
 ## Concurrency
 

@@ -1,9 +1,10 @@
 import { randomUUID } from 'node:crypto';
-import { outlineDraftSchema, reviewSchema, scenePlanSchema, narrationSchema, autoplayRequestSchema, type AgentReview, type ScenePlan, type StoryStage, type StoryWorldConfig } from '../contracts/index.ts';
+import { outlineDraftSchema, reviewSchema, scenePlanSchema, narrationSchema, prosePolishSchema, autoplayRequestSchema, type AgentReview, type ScenePlan, type StoryStage, type StoryWorldConfig } from '../contracts/index.ts';
 import { packsFor } from '../content/packs.ts';
 import type { StoryStore } from '../storage/store.ts';
 import { layeredPrompt, outlinePrompt } from './prompts.ts';
 import type { StructuredAgentProvider } from './provider.ts';
+import { sanitizeNarrationForPublication, validateProsePolish } from './public-narration.ts';
 
 export type ProviderResolver = (config: StoryWorldConfig) => StructuredAgentProvider;
 
@@ -107,6 +108,13 @@ export class StoryRuntime {
     return reviewSchema.parse({ ...review, approved: !issues.some(issue => issue.severity === 'blocking'), issues });
   }
 
+  private capUnprovenStageCompletion(plan: ScenePlan, context: Awaited<ReturnType<StoryStore['context']>>, issues: AgentReview['issues']) {
+    const stage = context.stage; if (!stage || stage.progress + plan.stageProgressDelta < 100) return plan;
+    const completionUnproven = issues.some(issue => issue.severity === 'blocking' && (issue.code === 'stage_boundary' || /阶段/.test(issue.message)) && /(100%|完成|结算|完成条件|证据不足|尚未|未形成|未确认)/.test(issue.message));
+    if (!completionUnproven) return plan;
+    return scenePlanSchema.parse({ ...plan, stageProgressDelta: Math.max(0, 99 - stage.progress) });
+  }
+
   private normalizePlan(plan: ScenePlan, context: Awaited<ReturnType<StoryStore['context']>>, routineChoicesDelegated = false) {
     const stripModelTiming = (beat: string) => beat
       .replace(/(?:第|前|后)?\s*\d+\s*(?:至|到|—|-|~)\s*\d+\s*分钟(?:内|后|时)?/g, '本场')
@@ -167,12 +175,15 @@ export class StoryRuntime {
     if (plan.requiresPlayerChoice) {
       const participants = plan.participants.filter(id => context.characters.find(character => character.id === id)?.location === protagonist.location);
       if (!participants.includes(protagonist.id)) participants.unshift(protagonist.id);
-      const decision = (plan.choicePrompt ?? plan.choices.join('、') ?? '后续方向').slice(0, 600);
+      const rawDecision = (plan.choicePrompt ?? plan.choices.join('、') ?? '后续方向').slice(0, 600);
+      const presupposesUncommittedEvidence = /(?:已经|现已|刚刚).{0,30}(?:获得|取得|拿到|确认|核实|发现|掌握|证明|查明|指向|来自)|已(?:获得|取得|拿到|确认|发现|掌握|证明|查明|指向|来自).{0,30}|(?:现场照片|旁证|证据|线索|记录|片段).{0,16}(?:已经|现已).{0,12}(?:获得|确认|核实|取得|指向)|(?:确认|核实).{0,20}(?:指向|来自|属于|证明)|(?:已核实|已确认)(?:的)?(?:线索|记录|片段).{0,20}(?:指向|来自|证明)/.test(rawDecision);
+      const decision = presupposesUncommittedEvidence ? '下一步先核验哪一项仍未确认的线索？' : rawDecision;
+      const choices = presupposesUncommittedEvidence ? ['先核对现有资料', '先询问相关知情人', '先勘察可以安全到达的目标地点'] : plan.choices;
       return scenePlanSchema.parse({
-        ...plan, objective: '在当前地点进行现场观察或交谈，形成可追溯的决定点，并停在玩家选择执行之前。', location: protagonist.location, participants,
+        ...plan, title: `${context.stage?.title ?? '当前阶段'}：行动前的分岔`, objective: '在当前地点整理已经掌握的记录，列出仍待核验的行动方向，并在执行前停下。', location: protagonist.location, participants, choicePrompt: decision,
         beats: ['参与者在本场观察现场，并陈述各自可以直接确认的信息。', '参与者基于本场观察说明可选方向及各自风险。', '在执行任何选项前停下，等待玩家决定。'],
-        changes: [{ type: 'fact', kind: 'dialogue', text: `在${protagonist.location}，参与者向玩家呈现了待决定事项：“${decision}”；任何选项及其后果均未执行。`, tags: ['decision_point', 'awaiting_player'] }],
-        stageProgressDelta: Math.min(plan.stageProgressDelta, 5), checkTags: presenceTags(participants),
+        changes: [{ type: 'fact', kind: 'dialogue', text: `在${protagonist.location}，参与者整理了现有记录，并提出待决定事项：“${decision}”；各方向仍待核验，尚未执行。`, tags: ['decision_point', 'awaiting_player'] }],
+        choices, stageProgressDelta: Math.min(plan.stageProgressDelta, 5), checkTags: presenceTags(participants),
       });
     }
     const supported = plan.changes.filter(change => change.type === 'fact' || change.type === 'character' ? change.type === 'fact' || plan.participants.includes(change.characterId) : plan.participants.includes(change.from) && plan.participants.includes(change.to));
@@ -212,7 +223,23 @@ export class StoryRuntime {
     const data = await this.store.runtimeData(turnId); const plan = scenePlanSchema.parse(data.plan);
     if (data.status === 'narrating') {
       const context = await this.store.context(storyId);
-      const narration = await this.step(turnId, 'narrating', 'Narrator Agent', () => provider.run('Narrator Agent', layeredPrompt('Narrator Agent', { ...context, fullCharacterIds: plan.participants }, `仅根据已提交事实为这个计划生成正文与选项。不得新增状态：${JSON.stringify(plan)}`, narrationSchema), narrationSchema, signal), value => value.summary);
+      let narration = await this.step(turnId, 'narrating', 'Narrator Agent', async () => {
+        const generated = await provider.run('Narrator Agent', layeredPrompt('Narrator Agent', { ...context, fullCharacterIds: plan.participants }, `仅根据已经提交的场景事件创作公开正文与可选行动，不新增事实或状态。场景计划：${JSON.stringify(plan)}`, narrationSchema), narrationSchema, signal);
+        return sanitizeNarrationForPublication(generated, plan, context.characters);
+      }, value => value.summary);
+      if (context.config.polishMode === 'standard') {
+        const draft = narration;
+        const polished = await this.step(turnId, 'polishing', 'Polish Agent', async () => {
+          try {
+            const candidate = await provider.run('Polish Agent', layeredPrompt('Polish Agent', { ...context, fullCharacterIds: plan.participants, draftNarration: draft }, '只润色 draft_narration.prose 的文笔。保持全部剧情内容、事实、人物、顺序、结果与选择停点不变，只返回 prose。', prosePolishSchema), prosePolishSchema, signal);
+            return validateProsePolish(draft.prose, candidate.prose, plan, context.characters);
+          } catch (error) {
+            if (signal?.aborted) throw error;
+            return { prose: draft.prose, applied: false, reason: `润色不可用，已安全保留原稿：${error instanceof Error ? error.message : String(error)}` };
+          }
+        }, value => value.reason);
+        narration = sanitizeNarrationForPublication({ ...draft, prose: polished.prose }, plan, context.characters);
+      }
       await this.store.finalizeNarration(turnId, narration);
     }
     const summarizing = await this.store.runtimeData(turnId);
@@ -254,6 +281,7 @@ export class StoryRuntime {
       if (blocking.length) {
         await this.store.setTurnStatus(turnId, 'repairing');
         plan = this.normalizePlan(await this.step(turnId, 'repairing', 'Director Agent', () => provider.run('Director Agent', layeredPrompt('Director Agent', context, `根据以下阻断问题修订一次计划。${durationRule}不得解释：${JSON.stringify(blocking)}。原计划：${JSON.stringify(plan)}`, scenePlanSchema), scenePlanSchema, signal), value => `已修订“${value.title}”。`), context, initial.source === 'autoplay');
+        plan = this.capUnprovenStageCompletion(plan, context, blocking);
         if (scheduledDuration) plan = scenePlanSchema.parse({ ...plan, durationMinutes: scheduledDuration });
         reviews = await this.reviews(turnId, provider, context, plan, signal); blocking = reviews.flatMap(review => review.issues).filter(issue => issue.severity === 'blocking');
       }

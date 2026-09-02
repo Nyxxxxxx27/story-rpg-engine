@@ -9,7 +9,7 @@ import { storyDeterministicGenerator } from '../packages/agent-runtime/determini
 
 export const testConfig = (genre: 'cultivation' | 'western_fantasy' | 'science_fiction' | 'modern_mystery' | 'custom' = 'science_fiction') => ({
   title: '验收故事', genre, premise: '一次需要长期追查的异常事件。', tone: '克制且重视人物选择', pacing: 'balanced' as const,
-  worldRules: ['结果必须有证据'], terminology: {}, contentBoundaries: [], storyPacks: [genre === 'cultivation' ? 'cultivation-hewan' : genre === 'western_fantasy' ? 'western-fantasy' : 'generic-story'], advancedPrompt: '', provider: 'deterministic' as const,
+  worldRules: ['结果必须有证据'], terminology: {}, contentBoundaries: [], storyPacks: [genre === 'cultivation' ? 'cultivation-hewan' : genre === 'western_fantasy' ? 'western-fantasy' : 'generic-story'], advancedPrompt: '', provider: 'deterministic' as const, polishMode: 'standard' as const,
 });
 
 export async function fixture() {

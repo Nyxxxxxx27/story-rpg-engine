@@ -29,7 +29,7 @@ describe('story-v1 core', () => {
     const turn = await value.store.enqueueTurn(storyId, '与核心同行者核对第一条线索。', 'test', 'test-turn-0001'); await value.runtime.runTurn(turn.id);
     const finished = await value.store.turn(turn.id); const state = await value.store.state(storyId, 'test');
     expect(finished.error).toBeNull(); expect(finished.status).toBe('completed'); expect(state.clock).toBe(360); expect(state.scenes).toHaveLength(1);
-    expect(finished.steps.map(step => step.name)).toEqual(expect.arrayContaining(['assembling', 'directing', 'continuity', 'stage', 'agency', 'character', 'pack', 'committing', 'narrating', 'summarizing']));
+    expect(finished.steps.map(step => step.name)).toEqual(expect.arrayContaining(['assembling', 'directing', 'continuity', 'stage', 'agency', 'character', 'pack', 'committing', 'narrating', 'polishing', 'summarizing']));
     expect(state.facts.length).toBeGreaterThanOrEqual(3); expect(state.facts.every(fact => fact.sourceTurnId === turn.id)).toBe(true);
     expect(state.relationships.some(relation => relation.trust === 1 && relation.evidenceFactIds.length === 1)).toBe(true);
   });
@@ -98,6 +98,17 @@ describe('story-v1 core', () => {
     expect(waiting.status).toBe('waiting_player'); expect(waiting.waitingReason).toContain('玩家决定'); expect(waiting.scene?.participants).toContain(state.characters.find(character => character.importance === 'protagonist')!.id);
   });
 
+  it('turns an unsupported remote-evidence claim into a neutral local decision point', async () => {
+    const value = await fixture(); cleanups.push(value.close); const storyId = await createActiveStory(value, 'modern_mystery'); const opening = await value.store.enqueueTurn(storyId, '先完成开局核验。', 'test', 'neutral-choice-opening'); await value.runtime.runTurn(opening.id); const state = await value.store.state(storyId); const protagonist = state.characters.find(character => character.importance === 'protagonist')!; const base = deterministicProvider(storyDeterministicGenerator);
+    const runtime = new StoryRuntime(value.store, () => ({ name: 'deterministic', async run(role: string, prompt: string, schema: any, signal?: AbortSignal) {
+      const result: any = await base.run(role, prompt, schema, signal); if (role !== 'Director Agent') return result;
+      return schema.parse({ ...result, title: '旧案发生地的未归档照片', location: '尚未抵达的旧案现场', requiresPlayerChoice: true, choicePrompt: '已核实线索确认现场照片指向被封存的通信记录，接下来使用哪一项？', choices: ['公开已获得的照片', '使用已确认的旁证'] });
+    } }));
+    const turn = await value.store.enqueueTurn(storyId, '决定下一步调查方向。', 'test', 'neutral-choice-0001'); await runtime.runTurn(turn.id); const waiting = await value.store.turn(turn.id); const finalState = await value.store.state(storyId); const runtimeData = await value.store.runtimeData(turn.id); const plan = runtimeData.plan as any;
+    expect(waiting.status).toBe('waiting_player'); expect(waiting.scene?.location).toBe(protagonist.location); expect(plan.title).toContain('行动前的分岔');
+    const facts = finalState.facts.filter(fact => fact.sourceTurnId === turn.id); expect(JSON.stringify(facts)).not.toMatch(/已获得|已确认的旁证|已核实线索|旧案发生地的未归档照片/); expect(plan.choicePrompt).toBe('下一步先核验哪一项仍未确认的线索？'); expect(plan.choices).toEqual(['先核对现有资料', '先询问相关知情人', '先勘察可以安全到达的目标地点']);
+  });
+
   it('records delegated reversible choices during autoplay without bypassing major-choice guards', async () => {
     const value = await fixture(); cleanups.push(value.close); const storyId = await createActiveStory(value, 'modern_mystery'); const opening = await value.store.enqueueTurn(storyId, '先完成一次普通开局核验。', 'test', 'delegation-opening-0001'); await value.runtime.runTurn(opening.id); const base = deterministicProvider(storyDeterministicGenerator);
     const runtime = new StoryRuntime(value.store, () => ({ name: 'deterministic', async run(role: string, prompt: string, schema: any, signal?: AbortSignal) {
@@ -131,5 +142,17 @@ describe('story-v1 core', () => {
     const state = await value.store.state(storyId); await value.store.editStage(storyId, { ...state.activeStage!, objective: `在故事首日完成：${state.activeStage!.objective}`, boundaries: [...state.activeStage!.boundaries, '第一阶段结束时，是否公开已核实线索或继续保密由玩家决定'] });
     const session = await value.runtime.startAutoplay(storyId, { durationMinutes: 360, maxScenes: 2 }); const queued = await value.database.pool.query("SELECT id FROM story_turns WHERE story_id=$1 AND idempotency_key=$2", [storyId, `autoplay:${session.id}:1`]); await value.runtime.runTurn(queued.rows[0].id); const waiting = await value.store.turn(queued.rows[0].id);
     expect(waiting.status).toBe('waiting_player'); expect(waiting.scene?.endTime).toBe(1440); expect(waiting.waitingReason).toContain('公开已核实线索');
+  });
+
+  it('caps progress at 99 when a stage completion review says evidence is still missing', async () => {
+    const value = await fixture(); cleanups.push(value.close); const storyId = await createActiveStory(value, 'modern_mystery'); const state = await value.store.state(storyId); await value.store.editStage(storyId, { ...state.activeStage!, progress: 95 });
+    const base = deterministicProvider(storyDeterministicGenerator); const provider = { name: 'deterministic' as const, async run(role: string, prompt: string, schema: any, signal?: AbortSignal) {
+      const result: any = await base.run(role, prompt, schema, signal);
+      if (role === 'Stage Agent' && /"stageProgressDelta":(?:[5-9]|[1-9]\d)/.test(prompt)) return schema.parse({ approved: false, summary: '完成条件证据不足。', issues: [{ code: 'stage_boundary', message: '计划会把阶段推进至100%，但尚未确认完成条件，与当前阶段结算要求冲突。', severity: 'blocking' }] });
+      return result;
+    } };
+    const runtime = new StoryRuntime(value.store, () => provider); const turn = await value.store.enqueueTurn(storyId, '继续核验，但不要提前结算阶段。', 'test', 'stage-cap-0001'); await runtime.runTurn(turn.id);
+    const finished = await value.store.turn(turn.id); const finalState = await value.store.state(storyId);
+    expect(finished.status).not.toBe('failed'); expect(finished.steps.some(step => step.name === 'repairing')).toBe(true); expect(finalState.activeStage?.progress).toBe(99);
   });
 });

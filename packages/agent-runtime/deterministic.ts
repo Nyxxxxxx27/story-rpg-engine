@@ -1,10 +1,24 @@
 import type { DeterministicGenerator } from './provider.ts';
 
+function jsonTag(prompt: string, tag: string) {
+  const match = prompt.match(new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`));
+  if (!match) return null;
+  const decoded = match[1].replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&amp;', '&');
+  try { return JSON.parse(decoded); } catch { return null; }
+}
+
 function jsonAfter(prompt: string, label: string) {
   const start = prompt.indexOf(label);
-  if (start < 0) return null;
-  const text = prompt.slice(start + label.length).split('\n\n')[0];
-  try { return JSON.parse(text); } catch { return null; }
+  if (start >= 0) {
+    const text = prompt.slice(start + label.length).split('\n\n')[0];
+    try { return JSON.parse(text); } catch { /* Try the XML prompt format below. */ }
+  }
+  const tag = ({
+    '世界设定：': 'world_config', '当前阶段：': 'current_stage', '角色档案：': 'character_profiles',
+    '最近场景：': 'recent_scenes', '相关事实：': 'canonical_facts',
+  } as Record<string, string>)[label];
+  if (!tag) return null;
+  return jsonTag(prompt, tag);
 }
 
 const genreContent: Record<string, { title: string; premise: string; names: string[]; locations: string[]; terms: string[] }> = {
@@ -85,8 +99,8 @@ function narration(prompt: string) {
   const latest = facts.at(-1)?.text ?? '新的线索已经被记录';
   return {
     title: `${stage?.title ?? '旅程'}：共同的证据`,
-    prose: `${protagonist?.name ?? '主角'}抵达现场时，${featured?.name ?? '同行者'}已经把能核对的细节逐项列好。他们没有急着给异常下结论，而是沿着时间、位置和见证人的说法反复验证。分歧仍在，但两人都把决定留给证据。临近下一段行程，他们确认了一个足以继续追查的事实：${latest}。这次行动没有替任何人决定最终方向，却让长期目标向前移动了一步。`,
-    summary: `${protagonist?.name ?? '主角'}与${featured?.name ?? '核心角色'}共同核验线索，阶段取得可追溯进展，双方互信略有增加。`,
+    prose: `${protagonist?.name ?? '主角'}抵达现场时，${featured?.name ?? '同行者'}已经把能核对的细节逐项列好。他们沿着时间、位置和见证人的说法反复验证，分歧逐渐收束到同一处疑点。临近下一段行程，两人确认了一个足以继续追查的事实：${latest}。窗外的光线移过桌沿，${featured?.name ?? '同行者'}合上记录册，指向仍能复查的下一条线索。`,
+    summary: `${protagonist?.name ?? '主角'}与${featured?.name ?? '核心角色'}共同核验线索，确认了新的疑点，双方互信略有增加。`,
     choices: ['继续沿已验证线索推进', '先与核心同伴复盘风险', '调查另一条旁证'],
   };
 }
@@ -95,6 +109,7 @@ export const storyDeterministicGenerator: DeterministicGenerator = prompt => {
   if (prompt.includes('开局策划 Agent')) return outline(prompt);
   if (prompt.includes('Director Agent')) return plan(prompt);
   if (prompt.includes('Narrator Agent')) return narration(prompt);
+  if (prompt.includes('Polish Agent')) return { prose: jsonTag(prompt, 'draft_narration')?.prose ?? '风声从窗外掠过。' };
   if (prompt.includes('修订一次')) return plan(prompt);
   return { approved: true, summary: '检查通过；计划与已提交事实、阶段目标和角色动机保持一致。', issues: [] };
 };

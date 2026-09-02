@@ -7,6 +7,7 @@ test('creates a story, confirms the outline, runs a turn, and shows Agent result
   await page.route(/\/api\/v2\/stories\/[^/]+\/stage-proposal$/, route => route.fulfill({ status: 502, contentType: 'application/json', body: JSON.stringify({ error: 'test restart window' }) }), { times: 1 });
   await page.getByRole('button', { name: /确认大纲并开始/ }).click(); await expect(page.getByText('故事尚未落笔')).toBeVisible();
   await page.getByPlaceholder('描述主角的行动、回应或想调查的方向…').fill('与核心同行者核对第一条线索。'); await page.locator('.send').click();
-  await expect(page.locator('.scene-card h1')).toBeVisible({ timeout: 30_000 }); await page.getByRole('button', { name: 'Agent' }).click();
-  await expect(page.getByText('Transaction Committer')).toBeVisible(); await expect(page.getByText('Narrator Agent')).toBeVisible(); expect(pageErrors).toEqual([]);
+  await expect(page.locator('.scene-card h1')).toBeVisible({ timeout: 30_000 }); const prose = await page.locator('.scene-card .prose').innerText(); expect(prose).not.toMatch(/玩家|用户|候选场景|已提交事实|结构化输出|状态变更|长期目标|阶段目标|思维链|<thinking>/);
+  await page.getByRole('button', { name: 'Agent' }).click();
+  await expect(page.getByText('Transaction Committer')).toBeVisible(); await expect(page.getByText('Narrator Agent')).toBeVisible(); await expect(page.getByText('Polish Agent')).toBeVisible(); expect(pageErrors).toEqual([]);
 });

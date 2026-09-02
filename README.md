@@ -1,6 +1,6 @@
 # Story RPG Engine
 
-一个面向长线剧情的本地 RPG 工作台。玩家可以从网页或 Codex MCP 发送行动；Director、连续性、阶段、主角自主性、动态角色和故事包 Agent 会经过固定流水线，只提交结构化候选变化。事实事务提交后，Narrator 才生成正文。
+一个面向长线剧情的本地 RPG 工作台。玩家可以从网页或 Codex MCP 发送行动；Director、连续性、阶段、主角自主性、动态角色和故事包 Agent 会经过固定流水线，只提交结构化候选变化。事实事务提交后，Narrator 才生成正文，Polish Agent 在正式显示前只润色文笔。
 
 本项目完全重构自对 XianTu 产品思路的研究。原项目仅作为 RPG 交互参考；这里没有继承旧架构、LangGraph NPC 图、人工 Bridge 或修仙专用内核。
 
@@ -10,7 +10,8 @@
 - 开局向导：随机大纲先审核，可编辑或重新生成，确认后才创建正式世界。
 - 长期主线与 4–6 个阶段目标；阶段结算后由 Agent 提案，玩家确认下一阶段。
 - 主角与核心人物常驻摘要；当场核心人物按数据库实时创建独立 Character Agent。
-- 固定回合：`queued → assembling → directing → reviewing → repairing? → committing → narrating → summarizing → completed/waiting_player`。
+- 固定回合：`queued → assembling → directing → reviewing → repairing? → committing → narrating → polishing? → summarizing → completed/waiting_player`。
+- 正式输出前润色默认开启，只允许修改 `prose`；标题、摘要、选项、事实和状态保持不变。人物、地点、数字、台词新增和疑似剧情事件会触发确定性回退，设置页可对未来场景关闭润色。
 - 单次修订上限；第二次规则失败不会写世界状态。
 - 规范事实携带结构化事件 payload 与来源 ID，可独立重放并校验状态哈希。
 - 网页、SSE 和项目级 MCP 共用 `/api/v2` 回合协议。
@@ -106,7 +107,7 @@ npm run build
 npm run test:three-day
 ```
 
-`test:three-day` 会删除并重建专用的 `.data/acceptance-three-day`，使用真实 Codex Provider 随机生成大纲，通过网页确认、MCP 开局并精确推进 4320 故事分钟。它在中点重启 API、Worker、数据库 socket 与 Provider，并检查阶段提案、关键暂停、核心角色参与、事实来源、跨题材泄漏、重复事件和重放哈希。通过后生成 `reports/acceptance/` 下的 JSON、Markdown 与截图。
+`test:three-day` 会删除并重建专用的 `.data/acceptance-three-day`，使用真实 Codex Provider 随机生成大纲，通过网页确认、MCP 开局并精确推进 4320 故事分钟。它在中点重启 API、Worker、数据库 socket 与 Provider，并检查阶段提案、关键暂停、核心角色参与、事实来源、公开正文元话语、逐场润色、跨题材泄漏、重复事件和重放哈希。通过后生成 `reports/acceptance/` 下的 JSON、Markdown 与截图。
 
 ## 数据与安全
 

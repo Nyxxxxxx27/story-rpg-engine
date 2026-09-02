@@ -6,7 +6,7 @@ const directory = resolve('.data/codex-shutdown-smoke'); await rm(directory, { r
 const service = await createStoryServer({ logger: false }); let reopened: Awaited<ReturnType<typeof createStoryServer>> | undefined; let closed = false; const sseController = new AbortController();
 try {
   await service.app.listen({ host: '127.0.0.1', port: 4311 });
-  const config = { title: '关闭恢复烟雾测试', genre: 'science_fiction' as const, premise: '一次中断恢复测试。', tone: '克制', pacing: 'balanced' as const, worldRules: ['事实必须可追溯'], terminology: {}, contentBoundaries: [], storyPacks: ['generic-story'], advancedPrompt: '', provider: 'deterministic' as const };
+  const config = { title: '关闭恢复烟雾测试', genre: 'science_fiction' as const, premise: '一次中断恢复测试。', tone: '克制', pacing: 'balanced' as const, worldRules: ['事实必须可追溯'], terminology: {}, contentBoundaries: [], storyPacks: ['generic-story'], advancedPrompt: '', provider: 'deterministic' as const, polishMode: 'standard' as const };
   const created = await service.store.create('local-player', config, 20260901); await service.runtime.generateOutline(created.storyId, 'local-player'); await service.store.confirmOutline(created.storyId, 'local-player'); await service.store.updateConfig(created.storyId, 'local-player', { ...config, provider: 'codex' }); const sse = await fetch(`http://127.0.0.1:4311/api/v2/stories/${created.storyId}/events`, { signal: sseController.signal }); if (!sse.ok) throw new Error(`SSE failed: ${sse.status} ${await sse.text()}`);
   const turn = await service.store.enqueueTurn(created.storyId, '启动一个真实 Codex 场景，然后立即模拟服务重启。', 'test', 'codex-shutdown-smoke'); await service.store.flushOutbox();
   const deadline = Date.now() + 180_000; let status = 'queued';
