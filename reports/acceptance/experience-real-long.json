@@ -1,0 +1,455 @@
+{
+  "startedAt": "2026-09-06T15:31:13.688Z",
+  "directory": "E:\\rpg\\story-rpg-engine\\.data\\experience-real-613c18e0-e826-491a-9f37-f47636fd57ba",
+  "provider": "codex",
+  "passed": true,
+  "coverage": "固定大纲，真实规划/审查/正文；资源行动与长休跨三个故事日。自然分支与NPC触发另由确定性集成测试覆盖。",
+  "turns": [
+    {
+      "id": "44a9df29-2861-4162-bc9a-31f48c15ae0d",
+      "method": "investigate",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 82947,
+      "validation": {
+        "mode": "fallback",
+        "issues": [
+          "最终正文缺少已绑定陈述：claim-investigation",
+          "陈述未绑定到对应段落：claim-investigation",
+          "最终正文缺少已绑定陈述：claim-discrepancy",
+          "陈述未绑定到对应段落：claim-discrepancy",
+          "最终正文缺少已绑定陈述：claim-success",
+          "陈述未绑定到对应段落：claim-success",
+          "需核对陈述：modality:[[\"尚未\"],[],[\"确认\"]]",
+          "需核对陈述：modality:[[],[],[\"确认\"]]",
+          "最终正文缺少已绑定陈述：claim-investigation",
+          "陈述未绑定到对应段落：claim-investigation",
+          "最终正文缺少已绑定陈述：claim-discrepancy",
+          "陈述未绑定到对应段落：claim-discrepancy",
+          "最终正文缺少已绑定陈述：claim-success",
+          "陈述未绑定到对应段落：claim-success",
+          "需核对陈述：modality:[[\"尚未\"],[],[\"确认\"]]",
+          "需核对陈述：modality:[[],[],[\"确认\"]]",
+          "prose将“待核对项”表述为已确认的“差异”，并称登记问题留下了可追查线索；这些内容超出canonical_facts，且前后对“差异是否确认”的表述存在张力。",
+          "最终正文缺少已绑定陈述：claim-investigation",
+          "陈述未绑定到对应段落：claim-investigation",
+          "最终正文缺少已绑定陈述：claim-success",
+          "陈述未绑定到对应段落：claim-success",
+          "一次修订后仍存在事实冲突，使用公开事件简述。"
+        ],
+        "semanticCalls": 2,
+        "repairs": 1,
+        "checkedAt": 1788708756767
+      }
+    },
+    {
+      "id": "aa53631e-9bbe-4f5b-9ed0-f24de622c7ae",
+      "method": "sneak",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 78462,
+      "validation": {
+        "mode": "semantic",
+        "issues": [
+          "润色改变了数字或时间信息，已保留原稿。",
+          "最终正文缺少已绑定陈述：c1",
+          "陈述未绑定到对应段落：c1",
+          "最终正文缺少已绑定陈述：c2",
+          "陈述未绑定到对应段落：c2",
+          "需核对陈述：modality:[[\"没有\"],[],[]]",
+          "最终正文缺少已绑定陈述：c1",
+          "陈述未绑定到对应段落：c1",
+          "最终正文缺少已绑定陈述：c2",
+          "陈述未绑定到对应段落：c2",
+          "需核对陈述：modality:[[\"没有\"],[],[]]"
+        ],
+        "semanticCalls": 2,
+        "repairs": 1,
+        "checkedAt": 1788708835285
+      }
+    },
+    {
+      "id": "1c292f2d-269f-4156-8ec4-d97a513e7210",
+      "method": "negotiate",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 67160,
+      "validation": {
+        "mode": "fallback",
+        "issues": [
+          "段落与最终正文不一致",
+          "最终正文缺少已绑定陈述：claim-negotiation",
+          "陈述未绑定到对应段落：claim-negotiation",
+          "人物说法或猜测被升级为客观事件：claim-negotiation",
+          "最终正文缺少已绑定陈述：claim-success",
+          "陈述未绑定到对应段落：claim-success",
+          "段落与最终正文不一致",
+          "最终正文缺少已绑定陈述：claim-negotiation",
+          "陈述未绑定到对应段落：claim-negotiation",
+          "人物说法或猜测被升级为客观事件：claim-negotiation",
+          "最终正文缺少已绑定陈述：claim-success",
+          "陈述未绑定到对应段落：claim-success",
+          "段落与最终正文不一致",
+          "人物说法或猜测被升级为客观事件：claim-negotiation",
+          "一次修订后仍存在事实冲突，使用公开事件简述。"
+        ],
+        "semanticCalls": 2,
+        "repairs": 1,
+        "checkedAt": 1788708902494
+      }
+    },
+    {
+      "id": "cb13774c-b9bf-4652-89b0-f1e5f1515749",
+      "method": "long_rest",
+      "status": "failed",
+      "error": "INVALID_MEMORY_EVIDENCE",
+      "elapsedMs": 33395
+    },
+    {
+      "id": "cb13774c-b9bf-4652-89b0-f1e5f1515749",
+      "method": "long_rest",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 56450,
+      "validation": {
+        "mode": "semantic",
+        "issues": [
+          "未获事件支持的地点：观测环廊",
+          "需核对陈述：modality:[[],[\"待核\"],[]]",
+          "需核对陈述：modality:[[\"尚未\"],[],[]]",
+          "未获事件支持的地点：观测环廊",
+          "需核对陈述：modality:[[],[\"待核\"],[]]",
+          "需核对陈述：modality:[[\"尚未\"],[],[]]"
+        ],
+        "semanticCalls": 1,
+        "repairs": 0,
+        "checkedAt": 1788709237485
+      }
+    },
+    {
+      "id": "549c1dd1-7e54-45b0-9db8-40ba4c4c907f",
+      "method": "long_rest",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 58092,
+      "validation": {
+        "mode": "semantic",
+        "issues": [
+          "润色改变了否定、行动主体、归属或信息确定性，已保留原稿。",
+          "需核对陈述：modality:[[\"没有\"],[\"待核\"],[]]",
+          "需核对陈述：modality:[[\"没有\"],[\"待核\"],[]]"
+        ],
+        "semanticCalls": 1,
+        "repairs": 0,
+        "checkedAt": 1788709295617
+      }
+    },
+    {
+      "id": "b667af50-6651-43ad-b37f-c4bd54f6fa94",
+      "method": "long_rest",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 48438,
+      "validation": {
+        "mode": "semantic",
+        "issues": [
+          "需核对陈述：modality:[[\"没有\"],[],[]]",
+          "需核对陈述：modality:[[\"没有\"],[],[]]"
+        ],
+        "semanticCalls": 1,
+        "repairs": 0,
+        "checkedAt": 1788709344133
+      }
+    },
+    {
+      "id": "4220900b-934a-4fb8-8cfa-715ed0731dd2",
+      "method": "long_rest",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 51793,
+      "validation": {
+        "mode": "semantic",
+        "issues": [
+          "需核对陈述：modality:[[\"没有\"],[],[]]",
+          "需核对陈述：modality:[[\"没有\"],[],[]]"
+        ],
+        "semanticCalls": 1,
+        "repairs": 0,
+        "checkedAt": 1788709396401
+      }
+    },
+    {
+      "id": "c5337198-358d-4287-bc38-daeb14652c57",
+      "method": "long_rest",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 48870,
+      "validation": {
+        "mode": "semantic",
+        "issues": [
+          "需核对陈述：modality:[[\"尚未\"],[],[]]",
+          "需核对陈述：modality:[[\"尚未\"],[],[]]"
+        ],
+        "semanticCalls": 1,
+        "repairs": 0,
+        "checkedAt": 1788709445311
+      }
+    },
+    {
+      "id": "2455a834-e5b3-4655-8447-0a696ae2a82b",
+      "method": "long_rest",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 54529,
+      "validation": {
+        "mode": "semantic",
+        "issues": [
+          "未获事件支持的地点：观测环廊",
+          "需核对陈述：modality:[[\"没有\"],[],[]]",
+          "未获事件支持的地点：观测环廊",
+          "需核对陈述：modality:[[\"没有\"],[],[]]",
+          "候选将“压低声响”改为“刻意压低声响”，新增了对环境中存在主观意图的推断，超出已提交事实。"
+        ],
+        "semanticCalls": 1,
+        "repairs": 0,
+        "checkedAt": 1788709499884
+      }
+    },
+    {
+      "id": "0545abee-9b46-4958-8b87-9c716924f22f",
+      "method": "long_rest",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 43172,
+      "validation": {
+        "mode": "semantic",
+        "issues": [
+          "需核对陈述：modality:[[\"没有\"],[],[]]",
+          "需核对陈述：modality:[[\"没有\"],[],[]]"
+        ],
+        "semanticCalls": 1,
+        "repairs": 0,
+        "checkedAt": 1788709543057
+      }
+    },
+    {
+      "id": "aee5eb00-ec7f-4185-94e9-471d212ead2e",
+      "method": "long_rest",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 56173,
+      "validation": {
+        "mode": "semantic",
+        "issues": [
+          "需核对陈述：modality:[[\"尚未\"],[],[]]",
+          "需核对陈述：modality:[[\"尚未\"],[],[]]"
+        ],
+        "semanticCalls": 1,
+        "repairs": 0,
+        "checkedAt": 1788709599324
+      }
+    },
+    {
+      "id": "7d87fd7b-b43b-4d89-a561-d16b4517e406",
+      "method": "long_rest",
+      "status": "completed",
+      "error": null,
+      "elapsedMs": 50458,
+      "validation": {
+        "mode": "rules",
+        "issues": [],
+        "semanticCalls": 0,
+        "repairs": 0,
+        "checkedAt": 1788709649825
+      }
+    }
+  ],
+  "storyId": "40b10e09-7211-4bda-a385-afd3fdc1c802",
+  "error": null,
+  "completedAt": "2026-09-06T15:47:29.966Z",
+  "restarts": [
+    "2026-09-06T15:39:40.977Z"
+  ],
+  "restore": {
+    "storyId": "7a85c325-a38b-4146-8066-e227ed77915c",
+    "checkpointId": "26b8381b-69b2-451d-a4cb-fbf9434199b5",
+    "sceneSeq": 6,
+    "paused": true,
+    "sourceHash": "9d12ace824901474b694ee9385e0dd00479b6f0bfb192b20f1b664452025f52b",
+    "historicalDispatches": 0
+  },
+  "clock": 4370,
+  "metrics": {
+    "latency": {
+      "phases": {
+        "assembling": {
+          "samples": 13,
+          "p50": 22,
+          "p95": 54
+        },
+        "directing": {
+          "samples": 13,
+          "p50": 12383,
+          "p95": 15137
+        },
+        "stage": {
+          "samples": 13,
+          "p50": 6952,
+          "p95": 11534
+        },
+        "continuity": {
+          "samples": 13,
+          "p50": 7568,
+          "p95": 11771
+        },
+        "agency": {
+          "samples": 13,
+          "p50": 7036,
+          "p95": 10138
+        },
+        "character": {
+          "samples": 13,
+          "p50": 5250,
+          "p95": 7929
+        },
+        "pack": {
+          "samples": 13,
+          "p50": 8212,
+          "p95": 13766
+        },
+        "committing": {
+          "samples": 13,
+          "p50": 63,
+          "p95": 96
+        },
+        "narrating": {
+          "samples": 12,
+          "p50": 8529,
+          "p95": 11080
+        },
+        "polishing": {
+          "samples": 12,
+          "p50": 5483,
+          "p95": 12715
+        },
+        "verifying": {
+          "samples": 14,
+          "p50": 5320,
+          "p95": 8167
+        },
+        "narration_repair": {
+          "samples": 3,
+          "p50": 9988,
+          "p95": 10633
+        },
+        "summarizing": {
+          "samples": 12,
+          "p50": 1,
+          "p95": 2
+        }
+      },
+      "total": {
+        "samples": 13,
+        "p50": 54518,
+        "p95": 82931
+      },
+      "queue": {
+        "samples": 13,
+        "p50": 15,
+        "p95": 31
+      },
+      "firstPublication": {
+        "samples": 12,
+        "p50": 54488,
+        "p95": 334934
+      }
+    },
+    "modelUsage": {
+      "calls": 119,
+      "reportedRequests": 119,
+      "tokensKnown": false,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    "scenes": 12,
+    "checkedScenes": 12,
+    "semanticReviewRate": 0.9166666666666666,
+    "fallbackRate": 0.16666666666666666,
+    "semanticCalls": 14,
+    "steps": [
+      {
+        "name": "agency",
+        "calls": 13,
+        "average_ms": 7187.461538461538
+      },
+      {
+        "name": "assembling",
+        "calls": 13,
+        "average_ms": 25.384615384615383
+      },
+      {
+        "name": "character",
+        "calls": 13,
+        "average_ms": 5733
+      },
+      {
+        "name": "committing",
+        "calls": 13,
+        "average_ms": 61.46153846153846
+      },
+      {
+        "name": "continuity",
+        "calls": 13,
+        "average_ms": 8007
+      },
+      {
+        "name": "directing",
+        "calls": 13,
+        "average_ms": 12016.461538461537
+      },
+      {
+        "name": "narrating",
+        "calls": 12,
+        "average_ms": 8948.583333333334
+      },
+      {
+        "name": "narration_repair",
+        "calls": 3,
+        "average_ms": 9615.666666666666
+      },
+      {
+        "name": "pack",
+        "calls": 13,
+        "average_ms": 8108
+      },
+      {
+        "name": "polishing",
+        "calls": 12,
+        "average_ms": 6253.083333333333
+      },
+      {
+        "name": "stage",
+        "calls": 13,
+        "average_ms": 7655.692307692308
+      },
+      {
+        "name": "summarizing",
+        "calls": 12,
+        "average_ms": 1
+      },
+      {
+        "name": "verifying",
+        "calls": 14,
+        "average_ms": 5565.285714285715
+      }
+    ]
+  },
+  "hashes": {
+    "stateHash": "c1c6170ff61382677414e1d9553b755d00b720432c2f8dcf93868966700e80c5",
+    "replayHash": "c1c6170ff61382677414e1d9553b755d00b720432c2f8dcf93868966700e80c5",
+    "matches": true
+  },
+  "resolvedErrors": [
+    "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'INVALID_MEMORY_EVIDENCE'\n- null\n"
+  ]
+}

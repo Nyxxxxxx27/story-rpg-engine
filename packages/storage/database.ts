@@ -8,7 +8,8 @@ import { PgBoss } from 'pg-boss';
 export async function connectDatabase(options: { url?: string; directory?: string; port?: number } = {}) {
   let embedded: PGlite | undefined;
   let socket: PGLiteSocketServer | undefined;
-  let url = options.url ?? process.env.DATABASE_URL;
+  // An explicit directory always selects an isolated embedded store, including in tests.
+  let url = options.url ?? (options.directory ? undefined : process.env.DATABASE_URL);
   if (!url) {
     const directory = options.directory ?? process.env.STORY_DATA_DIR ?? resolve('.data/story-postgres');
     if (directory !== 'memory://') await mkdir(directory, { recursive: true });
@@ -29,6 +30,7 @@ export async function connectDatabase(options: { url?: string; directory?: strin
     if (socket) await socket.stop();
     if (embedded) await embedded.close();
   };
-  return { pool, boss, embedded: !!embedded, close };
+  const backupRoot = options.directory ?? process.env.STORY_DATA_DIR ?? '.data';
+  return { pool, boss, embedded: !!embedded, backupDirectory: resolve(backupRoot === 'memory://' ? '.data' : backupRoot, 'migration-backups'), close };
 }
 export type Database = Awaited<ReturnType<typeof connectDatabase>>;

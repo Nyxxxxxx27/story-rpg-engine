@@ -1,0 +1,353 @@
+{
+  "provider": "deterministic",
+  "samplesPerMode": 1,
+  "passed": true,
+  "runs": [
+    {
+      "fastReview": false,
+      "latency": {
+        "byAttempt": {
+          "first": {
+            "samples": 1,
+            "p50": 271,
+            "p95": 271
+          },
+          "retry": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          },
+          "narration_recovery": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "phases": {
+          "assembling": {
+            "samples": 1,
+            "p50": 23,
+            "p95": 23
+          },
+          "directing": {
+            "samples": 1,
+            "p50": 8,
+            "p95": 8
+          },
+          "continuity": {
+            "samples": 1,
+            "p50": 33,
+            "p95": 33
+          },
+          "stage": {
+            "samples": 1,
+            "p50": 35,
+            "p95": 35
+          },
+          "agency": {
+            "samples": 1,
+            "p50": 36,
+            "p95": 36
+          },
+          "character": {
+            "samples": 1,
+            "p50": 37,
+            "p95": 37
+          },
+          "pack": {
+            "samples": 1,
+            "p50": 7,
+            "p95": 7
+          },
+          "committing": {
+            "samples": 1,
+            "p50": 58,
+            "p95": 58
+          },
+          "narrating": {
+            "samples": 1,
+            "p50": 8,
+            "p95": 8
+          },
+          "polishing": {
+            "samples": 1,
+            "p50": 6,
+            "p95": 6
+          },
+          "verifying": {
+            "samples": 1,
+            "p50": 6,
+            "p95": 6
+          },
+          "summarizing": {
+            "samples": 1,
+            "p50": 1,
+            "p95": 1
+          }
+        },
+        "total": {
+          "samples": 1,
+          "p50": 271,
+          "p95": 271
+        },
+        "queue": {
+          "samples": 1,
+          "p50": 27,
+          "p95": 27
+        },
+        "firstPublication": {
+          "samples": 1,
+          "p50": 258,
+          "p95": 258
+        }
+      },
+      "modelUsage": {
+        "calls": 9,
+        "reportedRequests": 9,
+        "tokensKnown": false,
+        "inputTokens": null,
+        "outputTokens": null
+      },
+      "scenes": 1,
+      "checkedScenes": 1,
+      "semanticReviewRate": 1,
+      "fallbackRate": 0,
+      "semanticCalls": 1,
+      "steps": [
+        {
+          "name": "agency",
+          "calls": 1,
+          "average_ms": 36
+        },
+        {
+          "name": "assembling",
+          "calls": 1,
+          "average_ms": 23
+        },
+        {
+          "name": "character",
+          "calls": 1,
+          "average_ms": 37
+        },
+        {
+          "name": "committing",
+          "calls": 1,
+          "average_ms": 58
+        },
+        {
+          "name": "continuity",
+          "calls": 1,
+          "average_ms": 33
+        },
+        {
+          "name": "directing",
+          "calls": 1,
+          "average_ms": 8
+        },
+        {
+          "name": "narrating",
+          "calls": 1,
+          "average_ms": 8
+        },
+        {
+          "name": "pack",
+          "calls": 1,
+          "average_ms": 7
+        },
+        {
+          "name": "polishing",
+          "calls": 1,
+          "average_ms": 6
+        },
+        {
+          "name": "stage",
+          "calls": 1,
+          "average_ms": 35
+        },
+        {
+          "name": "summarizing",
+          "calls": 1,
+          "average_ms": 1
+        },
+        {
+          "name": "verifying",
+          "calls": 1,
+          "average_ms": 6
+        }
+      ]
+    },
+    {
+      "fastReview": true,
+      "latency": {
+        "byAttempt": {
+          "first": {
+            "samples": 1,
+            "p50": 226,
+            "p95": 226
+          },
+          "retry": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          },
+          "narration_recovery": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "phases": {
+          "assembling": {
+            "samples": 1,
+            "p50": 15,
+            "p95": 15
+          },
+          "directing": {
+            "samples": 1,
+            "p50": 4,
+            "p95": 4
+          },
+          "continuity": {
+            "samples": 1,
+            "p50": 18,
+            "p95": 18
+          },
+          "stage": {
+            "samples": 1,
+            "p50": 19,
+            "p95": 19
+          },
+          "agency": {
+            "samples": 1,
+            "p50": 20,
+            "p95": 20
+          },
+          "character": {
+            "samples": 1,
+            "p50": 21,
+            "p95": 21
+          },
+          "pack": {
+            "samples": 1,
+            "p50": 7,
+            "p95": 7
+          },
+          "committing": {
+            "samples": 1,
+            "p50": 58,
+            "p95": 58
+          },
+          "narrating": {
+            "samples": 1,
+            "p50": 7,
+            "p95": 7
+          },
+          "polishing": {
+            "samples": 1,
+            "p50": 7,
+            "p95": 7
+          },
+          "verifying": {
+            "samples": 1,
+            "p50": 5,
+            "p95": 5
+          },
+          "summarizing": {
+            "samples": 1,
+            "p50": 1,
+            "p95": 1
+          }
+        },
+        "total": {
+          "samples": 1,
+          "p50": 226,
+          "p95": 226
+        },
+        "queue": {
+          "samples": 1,
+          "p50": 12,
+          "p95": 12
+        },
+        "firstPublication": {
+          "samples": 1,
+          "p50": 206,
+          "p95": 206
+        }
+      },
+      "modelUsage": {
+        "calls": 9,
+        "reportedRequests": 9,
+        "tokensKnown": false,
+        "inputTokens": null,
+        "outputTokens": null
+      },
+      "scenes": 1,
+      "checkedScenes": 1,
+      "semanticReviewRate": 1,
+      "fallbackRate": 0,
+      "semanticCalls": 1,
+      "steps": [
+        {
+          "name": "agency",
+          "calls": 1,
+          "average_ms": 20
+        },
+        {
+          "name": "assembling",
+          "calls": 1,
+          "average_ms": 15
+        },
+        {
+          "name": "character",
+          "calls": 1,
+          "average_ms": 21
+        },
+        {
+          "name": "committing",
+          "calls": 1,
+          "average_ms": 58
+        },
+        {
+          "name": "continuity",
+          "calls": 1,
+          "average_ms": 18
+        },
+        {
+          "name": "directing",
+          "calls": 1,
+          "average_ms": 4
+        },
+        {
+          "name": "narrating",
+          "calls": 1,
+          "average_ms": 7
+        },
+        {
+          "name": "pack",
+          "calls": 1,
+          "average_ms": 7
+        },
+        {
+          "name": "polishing",
+          "calls": 1,
+          "average_ms": 7
+        },
+        {
+          "name": "stage",
+          "calls": 1,
+          "average_ms": 19
+        },
+        {
+          "name": "summarizing",
+          "calls": 1,
+          "average_ms": 1
+        },
+        {
+          "name": "verifying",
+          "calls": 1,
+          "average_ms": 5
+        }
+      ]
+    }
+  ]
+}

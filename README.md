@@ -1,22 +1,31 @@
 # Story RPG Engine
 
-一个面向长线剧情的本地 RPG 工作台。玩家可以从网页或 Codex MCP 发送行动；Director、连续性、阶段、主角自主性、动态角色和故事包 Agent 会经过固定流水线，只提交结构化候选变化。事实事务提交后，Narrator 才生成正文，Polish Agent 在正式显示前只润色文笔。
+一个面向长线剧情的本地 RPG 工作台。玩家可以从网页或 Codex MCP 发送行动；Director、连续性、阶段、主角自主性、动态角色和故事包 Agent 按行动风险执行合并或完整审查，只提交结构化候选变化。事实事务提交后，Narrator 才生成正文，Polish Agent 在正式显示前只润色文笔。
 
 本项目完全重构自对 XianTu 产品思路的研究。原项目仅作为 RPG 交互参考；这里没有继承旧架构、LangGraph NPC 图、人工 Bridge 或修仙专用内核。
 
 ## 核心能力
 
-- 通用 `story-v1` 内核：世界、阶段、角色、关系、事实、场景、回合、Prompt 版本和托管。
+- 通用 `story-v2` 内核：世界、阶段、角色、关系、事实、场景、回合、Prompt 版本和托管。
 - 开局向导：随机大纲先审核，可编辑或重新生成，确认后才创建正式世界。
-- 长期主线与 4–6 个阶段目标；阶段结算后由 Agent 提案，玩家确认下一阶段。
+- 长期主线、人物关系与历史证据进入规划和审查。每阶段以有事实证据的里程碑计算进度；结算后由玩家确认下一阶段，最终阶段结算后结束故事。
+- 普通场景提供行动按钮；关键选择使用持久化 decisionId，在同一事务中确认选择并创建唯一后续回合。选择后只推进一场，原托管保持暂停。
+- 阶段截止时间使用绝对故事分钟；到期未完成会暂停，由玩家延期或按实际进度结束，支持部分完成、放弃及有证据的失败。
 - 主角与核心人物常驻摘要；当场核心人物按数据库实时创建独立 Character Agent。
-- 固定回合：`queued → assembling → directing → reviewing → repairing? → committing → narrating → polishing? → summarizing → completed/waiting_player`。
-- 正式输出前润色默认开启，只允许修改 `prose`；标题、摘要、选项、事实和状态保持不变。人物、地点、数字、台词新增和疑似剧情事件会触发确定性回退，设置页可对未来场景关闭润色。
+- 固定回合：`queued → assembling → directing → reviewing → repairing? → committing → narrating → polishing? → verifying? → narration_repair? → summarizing → completed/waiting_player`。
+- 正式输出前润色默认开启。普通正文、润色和摘要做规则检查；重大选择后果、不可逆变化、阶段结算或疑似冲突触发语义检查。只允许一次正文修订，仍失败则显示已提交公开事件的保守简述；支持仅重写正文。
+- 校验前的正文不经 SSE 发布。规则检查覆盖部分冲突模式，不等于证明任意自然语言的语义完全一致。
 - 单次修订上限；第二次规则失败不会写世界状态。
 - 规范事实携带结构化事件 payload 与来源 ID，可独立重放并校验状态哈希。
 - 网页、SSE 和项目级 MCP 共用 `/api/v2` 回合协议。
 - 托管使用故事内时间：6 小时、1 天、3 天、7 天或 1 小时至 30 天，最多 50 场；重大变化自动暂停。
 - `cultivation-hewan`、`western-fantasy` 与通用故事包可独立启用，内核不硬编码题材术语。
+
+## 五批扩展（存档版本 7）
+
+已增加相关历史检索与后台索引、完整历史阅读、恋爱配置、低风险合并审查、逐项正文依据、导出恢复、结果驱动路线与历史分叉、通用资源及四类规则、NPC 知识与预警调度。
+
+使用方式及边界见 [五批交付说明](docs/FIVE_BATCH_EXPERIENCE.md)，实测记录见 [五批验收](reports/acceptance/FIVE_BATCH_ACCEPTANCE.md)。
 
 ## 技术栈
 
@@ -77,6 +86,11 @@ npm start
 - `story_review_stage_proposal`
 - `story_start_autoplay`
 - `story_stop_autoplay`
+- `story_resolve_choice`
+- `story_resume_autoplay`
+- `story_resolve_deadline`
+- `story_retry_narration`
+- `story_retry_turn`
 
 网页手动输入与 MCP 输入按服务器接收顺序进入同一队列；手动输入暂停托管。
 
@@ -88,6 +102,11 @@ npm start
 - `POST /stories/:id/outline/generate`
 - `PUT /stories/:id/outline`、`POST /stories/:id/outline/confirm`
 - `POST /stories/:id/turns`、`GET /stories/:id/turns/:turnId`
+- `POST /stories/:id/choices/resolve`（decisionId、optionId 或 choice、idempotencyKey；返回 continuationTurnId）
+- `POST /stories/:id/turns/:turnId/retry`
+- `POST /stories/:id/scenes/:sceneId/narration/retry`
+- `POST /stories/:id/stages/:stageId/deadline/resolve`（revision、action、deadlineMinutes、idempotencyKey）
+- `GET /stories/:id/metrics`（步骤耗时、语义检查和降级比例）
 - `PUT /stories/:id/stages/:stageId`
 - `GET /stories/:id/stage-proposal`
 - `POST /stories/:id/stage-proposal/:proposalId/review`
@@ -104,10 +123,22 @@ npm run typecheck
 npm test
 npm run test:ui
 npm run build
-npm run test:three-day
+npm run test:v2-smoke
 ```
 
-`test:three-day` 会删除并重建专用的 `.data/acceptance-three-day`，使用真实 Codex Provider 随机生成大纲，通过网页确认、MCP 开局并精确推进 4320 故事分钟。它在中点重启 API、Worker、数据库 socket 与 Provider，并检查阶段提案、关键暂停、核心角色参与、事实来源、公开正文元话语、逐场润色、跨题材泄漏、重复事件和重放哈希。通过后生成 `reports/acceptance/` 下的 JSON、Markdown 与截图。
+`npm test` 覆盖事务幂等、上下文补取、正文反例与修订、里程碑证据、40 回合历史保留、迁移及恢复。浏览器测试使用独立存档、4273 端口及动态 API 端口；可先执行 `npx playwright install chromium`，也可在已有 Chrome 的 Windows 上使用 `$env:PLAYWRIGHT_CHANNEL='chrome'`。
+
+`test:v2-smoke` 使用新建隔离存档和真实 Codex 回合 Agent（大纲采用确定性夹具），验证选择后果、正文检查及仅重写正文。保存 `reports/v2-smoke.json` 和对应存档，便于复查。
+
+可选的 `npm run test:three-day` 运行更长的真实模型验收：网页确认、MCP 行动、明确处理阶段/选择暂停、手动恢复托管和中途重启；达到 4320 故事分钟或最终结局时停止。它使用全新 `.data/acceptance-three-day-*` 存档，耗时明显长于冒烟测试。
+
+## 存档升级
+
+启动时幂等迁移到结构版本 2。修改旧投影前，将原始记录写入数据目录下的 `migration-backups/<storyId>-v1.json`，同时保存在 `story_save_backups` 表。文件写入失败会回滚该存档迁移。
+
+保留旧正文、事实和已完成阶段的历史结论。旧未完成阶段生成待核验里程碑，旧百分比保存在 `legacyProgress`，不据此虚构完成证据。旧等待选择补建 decision；已经确认的旧选择不补跑后果。迁移与阶段变化追加可重放事件。
+
+接口细节、错误恢复和验收覆盖见 [v2 交付说明](docs/V2_CORE_EXPERIENCE.md)。
 
 ## 数据与安全
 
@@ -119,7 +150,7 @@ npm run test:three-day
 apps/api        Fastify API、SSE 与本地 Worker
 apps/mcp        项目级 STDIO MCP
 apps/web        React 剧情工作台
-packages/contracts       story-v1 Schema
+packages/contracts       story-v2 Schema
 packages/storage         PostgreSQL、事件与投影
 packages/agent-runtime   Provider、Prompt 与固定流水线
 packages/content         版本化故事包

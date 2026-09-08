@@ -1,0 +1,294 @@
+{
+  "provider": "deterministic",
+  "samplesPerMode": 12,
+  "note": "耗时来自隔离本地负载；不代表真实模型延迟。tokens 未返回时保持未知。",
+  "runs": [
+    {
+      "fastReview": false,
+      "latency": {
+        "byAttempt": {
+          "first": {
+            "samples": 12,
+            "p50": 152,
+            "p95": 211
+          },
+          "retry": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          },
+          "narration_recovery": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "phases": {
+          "assembling": {
+            "samples": 12,
+            "p50": 15,
+            "p95": 19
+          },
+          "directing": {
+            "samples": 12,
+            "p50": 3,
+            "p95": 6
+          },
+          "continuity": {
+            "samples": 12,
+            "p50": 14,
+            "p95": 24
+          },
+          "stage": {
+            "samples": 12,
+            "p50": 14,
+            "p95": 25
+          },
+          "agency": {
+            "samples": 12,
+            "p50": 15,
+            "p95": 25
+          },
+          "character": {
+            "samples": 12,
+            "p50": 16,
+            "p95": 26
+          },
+          "pack": {
+            "samples": 12,
+            "p50": 5,
+            "p95": 6
+          },
+          "committing": {
+            "samples": 12,
+            "p50": 32,
+            "p95": 42
+          },
+          "narrating": {
+            "samples": 12,
+            "p50": 4,
+            "p95": 8
+          },
+          "polishing": {
+            "samples": 12,
+            "p50": 3,
+            "p95": 7
+          },
+          "summarizing": {
+            "samples": 12,
+            "p50": 1,
+            "p95": 4
+          }
+        },
+        "total": {
+          "samples": 12,
+          "p50": 152,
+          "p95": 211
+        },
+        "queue": {
+          "samples": 12,
+          "p50": 11,
+          "p95": 22
+        },
+        "firstPublication": {
+          "samples": 12,
+          "p50": 137,
+          "p95": 201
+        }
+      },
+      "modelUsage": {
+        "calls": 96,
+        "reportedRequests": 96,
+        "tokensKnown": false,
+        "inputTokens": null,
+        "outputTokens": null
+      },
+      "scenes": 12,
+      "checkedScenes": 12,
+      "semanticReviewRate": 0,
+      "fallbackRate": 0,
+      "semanticCalls": 0,
+      "steps": [
+        {
+          "name": "agency",
+          "calls": 12,
+          "average_ms": 16.833333333333332
+        },
+        {
+          "name": "assembling",
+          "calls": 12,
+          "average_ms": 15.666666666666666
+        },
+        {
+          "name": "character",
+          "calls": 12,
+          "average_ms": 17.333333333333332
+        },
+        {
+          "name": "committing",
+          "calls": 12,
+          "average_ms": 33.666666666666664
+        },
+        {
+          "name": "continuity",
+          "calls": 12,
+          "average_ms": 15.416666666666666
+        },
+        {
+          "name": "directing",
+          "calls": 12,
+          "average_ms": 3.5
+        },
+        {
+          "name": "narrating",
+          "calls": 12,
+          "average_ms": 4.583333333333333
+        },
+        {
+          "name": "pack",
+          "calls": 12,
+          "average_ms": 5.25
+        },
+        {
+          "name": "polishing",
+          "calls": 12,
+          "average_ms": 3.6666666666666665
+        },
+        {
+          "name": "stage",
+          "calls": 12,
+          "average_ms": 15.916666666666666
+        },
+        {
+          "name": "summarizing",
+          "calls": 12,
+          "average_ms": 0.8333333333333334
+        }
+      ]
+    },
+    {
+      "fastReview": true,
+      "latency": {
+        "byAttempt": {
+          "first": {
+            "samples": 12,
+            "p50": 138,
+            "p95": 154
+          },
+          "retry": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          },
+          "narration_recovery": {
+            "samples": 0,
+            "p50": null,
+            "p95": null
+          }
+        },
+        "phases": {
+          "directing": {
+            "samples": 12,
+            "p50": 3,
+            "p95": 4
+          },
+          "assembling": {
+            "samples": 12,
+            "p50": 16,
+            "p95": 20
+          },
+          "combined": {
+            "samples": 12,
+            "p50": 7,
+            "p95": 14
+          },
+          "committing": {
+            "samples": 12,
+            "p50": 32,
+            "p95": 39
+          },
+          "narrating": {
+            "samples": 12,
+            "p50": 4,
+            "p95": 6
+          },
+          "polishing": {
+            "samples": 12,
+            "p50": 3,
+            "p95": 4
+          },
+          "summarizing": {
+            "samples": 12,
+            "p50": 1,
+            "p95": 1
+          }
+        },
+        "total": {
+          "samples": 12,
+          "p50": 138,
+          "p95": 154
+        },
+        "queue": {
+          "samples": 12,
+          "p50": 10,
+          "p95": 14
+        },
+        "firstPublication": {
+          "samples": 12,
+          "p50": 119,
+          "p95": 139
+        }
+      },
+      "modelUsage": {
+        "calls": 48,
+        "reportedRequests": 48,
+        "tokensKnown": false,
+        "inputTokens": null,
+        "outputTokens": null
+      },
+      "scenes": 12,
+      "checkedScenes": 12,
+      "semanticReviewRate": 0,
+      "fallbackRate": 0,
+      "semanticCalls": 0,
+      "steps": [
+        {
+          "name": "assembling",
+          "calls": 12,
+          "average_ms": 16.083333333333332
+        },
+        {
+          "name": "combined",
+          "calls": 12,
+          "average_ms": 8
+        },
+        {
+          "name": "committing",
+          "calls": 12,
+          "average_ms": 32.833333333333336
+        },
+        {
+          "name": "directing",
+          "calls": 12,
+          "average_ms": 3.3333333333333335
+        },
+        {
+          "name": "narrating",
+          "calls": 12,
+          "average_ms": 4.5
+        },
+        {
+          "name": "polishing",
+          "calls": 12,
+          "average_ms": 3.0833333333333335
+        },
+        {
+          "name": "summarizing",
+          "calls": 12,
+          "average_ms": 0.6666666666666666
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

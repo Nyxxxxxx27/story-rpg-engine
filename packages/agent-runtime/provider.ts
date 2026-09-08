@@ -1,3 +1,5 @@
+import {AsyncLocalStorage} from 'node:async_hooks';
+const requestCounter=new AsyncLocalStorage<{requests:number}>();
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
 import { createInterface, type Interface } from 'node:readline';
 import { mkdir } from 'node:fs/promises';
@@ -12,7 +14,7 @@ export type ProviderName = 'codex' | 'openai' | 'deterministic';
 
 export interface StructuredAgentProvider {
   readonly name: ProviderName;
-  run<T>(role: string, instructions: string, schema: z.ZodType<T>, signal?: AbortSignal): Promise<T>;
+  run<T>(role: string, instructions: string, schema: z.ZodType<T>, signal?: AbortSignal, onUsage?: (usage: Record<string, unknown>) => void): Promise<T>;
   close?(): Promise<void>;
 }
 
@@ -153,6 +155,7 @@ export class CodexAppServerModel extends JsonModel {
 
   private async generateOnce(prompt: string, schema: Record<string, unknown> | undefined, signal?: AbortSignal) {
     if (signal?.aborted) throw signal.reason ?? new Error('Codex call aborted');
+    const counter=requestCounter.getStore();if(counter)counter.requests++;
     await this.ensureStarted(); const cwd = this.options.cwd ?? resolve('.data/agent-sandbox'); let threadId: string | undefined; let turnId: string | undefined; let abortListener: (() => void) | undefined; let timeoutId: NodeJS.Timeout | undefined;
     const operation = (async () => {
       const started = await this.rpc<any>('thread/start', {
@@ -203,7 +206,7 @@ export class CodexAppServerModel extends JsonModel {
 export type DeterministicGenerator = (prompt: string, schema?: Record<string, unknown>) => unknown;
 export class DeterministicModel extends JsonModel {
   constructor(private readonly generator: DeterministicGenerator) { super(); }
-  async generate(prompt: string, schema?: Record<string, unknown>) { return JSON.stringify(this.generator(prompt, schema)); }
+  async generate(prompt: string, schema?: Record<string, unknown>) { const counter=requestCounter.getStore();if(counter)counter.requests++;return JSON.stringify(this.generator(prompt, schema)); }
 }
 
 export class AgentsSdkProvider implements StructuredAgentProvider {
@@ -212,7 +215,7 @@ export class AgentsSdkProvider implements StructuredAgentProvider {
     this.runner = new Runner({ modelProvider, tracingDisabled: true });
   }
 
-  async run<T>(role: string, instructions: string, schema: z.ZodType<T>, signal?: AbortSignal) {
+  async run<T>(role: string, instructions: string, schema: z.ZodType<T>, signal?: AbortSignal, onUsage?: (usage: Record<string, unknown>) => void) {
     const agent = new Agent({
       name: role,
       instructions,
@@ -221,11 +224,13 @@ export class AgentsSdkProvider implements StructuredAgentProvider {
       tools: [],
       modelSettings: { toolChoice: 'none', store: false, timeoutMs: 360_000 },
     });
+    const counter={requests:0};return requestCounter.run(counter,async()=>{
     for (let attempt = 1; attempt <= 2; attempt++) {
-      try { const result = await this.runner.run(agent, '执行职责并返回唯一的结构化结果。', { maxTurns: 1, signal }); return schema.parse(result.finalOutput); }
+      try { const result = await this.runner.run(agent, '执行职责并返回唯一的结构化结果。', { maxTurns: 1, signal }); const usage = result.state.usage; onUsage?.({ requests: this.name==='openai'?usage.requests:counter.requests, inputTokens: this.name === 'openai' ? usage.inputTokens : null, outputTokens: this.name === 'openai' ? usage.outputTokens : null, usageKnown: this.name === 'openai', providerAttempts: attempt }); return schema.parse(result.finalOutput); }
       catch (error) { if (attempt === 2 || signal?.aborted || !String(error).toLowerCase().includes('timed out')) throw error; }
     }
     throw new Error('Structured Agent call exhausted retries.');
+    });
   }
 
   async close() { await this.dispose?.(); }

@@ -1,4 +1,5 @@
 import type { DeterministicGenerator } from './provider.ts';
+import { witnessGraph } from '../storage/branches.ts';
 
 function jsonTag(prompt: string, tag: string) {
   const match = prompt.match(new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`));
@@ -52,10 +53,10 @@ function outline(prompt: string) {
     premise: config.premise || source.premise,
     arcObjective: `找出${source.terms[0]}背后的真相，并在局势失控前决定它应被保存、公开还是终止。`,
     stakes: `失败会使${source.locations[0]}及核心人物失去选择自身未来的机会。`,
-    stages,
+    ...witnessGraph(),
     characters: [
       { id: 'protagonist', name: names[0], importance: 'protagonist', roleTags: ['player_character'], publicProfile: '谨慎而有行动力的事件亲历者。', privateProfile: '害怕自己的判断让同伴承担代价。', drives: ['查明真相并保住选择权'], fears: ['因仓促决定伤害同伴'], location: source.locations[0] },
-      { id: 'core-heroine', name: names[1], importance: 'core', roleTags: ['heroine', 'love_interest', 'investigator'], publicProfile: '观察敏锐、坚持证据的关键同行者。', privateProfile: '掌握一段尚未确认能否公开的旧日联系。', drives: ['保护证据与身边的人'], fears: ['信任再次被利用'], location: source.locations[0] },
+      { id: 'core-heroine', name: names[1], importance: 'core', roleTags: ['investigator', 'companion'], publicProfile: '观察敏锐、坚持证据的关键同行者。', privateProfile: '掌握一段尚未确认能否公开的旧日联系。', drives: ['保护证据与身边的人'], fears: ['信任再次被利用'], location: source.locations[0] },
       { id: 'core-rival', name: names[2], importance: 'core', roleTags: ['rival'], publicProfile: '与主角目标部分重合、手段更强硬的竞争者。', privateProfile: '正受另一方势力施压。', drives: ['抢先控制关键线索'], fears: ['失去谈判筹码'], location: source.locations[1] },
       { id: 'core-witness', name: names[3], importance: 'core', roleTags: ['companion', 'witness'], publicProfile: '知道当地旧事、愿意提供实际帮助。', privateProfile: '曾亲眼见过异常却隐瞒了细节。', drives: ['弥补过去的沉默'], fears: ['旧事牵连家人'], location: source.locations[0] },
       { id: 'core-antagonist', name: names[4], importance: 'core', roleTags: ['antagonist'], publicProfile: '试图封锁线索来源的执行者。', privateProfile: '并不完全认同自己的任务。', drives: ['完成封锁并保住地位'], fears: ['秘密公开后遭到清算'], location: source.locations[1] },
@@ -68,48 +69,61 @@ function plan(prompt: string) {
   const stage = jsonAfter(prompt, '当前阶段：');
   const scenes = jsonAfter(prompt, '最近场景：') ?? [];
   const protagonist = characters.find((item: any) => item.importance === 'protagonist') ?? characters[0];
-  const featured = characters.find((item: any) => item.roleTags?.includes('heroine') || item.roleTags?.includes('love_interest')) ?? characters[1] ?? protagonist;
-  const next = scenes.length + 1;
+  const featured = characters.find((item: any) => item.roleTags?.includes('investigator') || item.roleTags?.includes('love_interest')) ?? characters[1] ?? protagonist;
+  const next = Math.floor((jsonTag(prompt, 'story_clock') ?? 0) / 360) + 1;
+  const milestone = stage?.milestones?.find((item: any) => item.status === 'pending');
+  const timing = JSON.parse(prompt.match(/timing=(\{[^}]+\})/)?.[1] ?? '{}');
+  const explicit=JSON.parse(prompt.match(/明确的结构化行动：(\{[^\n]*?\}|null)。玩家输入/)?.[1]??'null');
+  const resourceExtra=explicit?{resourceIntent:explicit,changes:[{type:'fact',kind:'action',text:`${protagonist.name}完成了登记行动的目标。`,tags:['action_success']}],failureChanges:[{type:'fact',kind:'action',text:`${protagonist.name}的尝试遇到阻碍，尚未完成目标。`,tags:['action_failure']}]}:{};
   return {
     title: `${stage?.title ?? '当前阶段'} · 推进一步`,
     objective: `由${protagonist.name}与${featured.name}核对一条可验证线索，使“${stage?.objective ?? '长期目标'}”获得明确进展。`,
     location: featured.location || protagonist.location,
     participants: [...new Set([protagonist.id, featured.id])],
-    durationMinutes: 360,
+    durationMinutes: timing.scheduledDurationMinutes ?? Math.min(360, timing.maxDurationMinutes ?? 360),
     beats: ['复核上一场景留下的事实', '两名核心人物以各自动机采取行动', '取得可供后续验证的新线索'],
     changes: [
       { type: 'character', characterId: featured.id, field: 'recentBeat', value: `第${next}次推进中与${protagonist.name}共同确认了新线索。`, significance: 'minor' },
       { type: 'relationship', from: protagonist.id, to: featured.id, dimension: 'trust', delta: 1, reason: `${featured.name}与${protagonist.name}共同承担核验线索的责任，互信增加。`, significance: 'minor' },
-      { type: 'fact', kind: 'world', text: `第${next}次调查确认：当前线索与阶段目标存在可复核联系。`, tags: ['clue', `scene-${next}`] },
+      { type: 'fact', kind: 'world', text: milestone ? milestone.criterion : `两人在现场核对第${next}份记录。`, tags: ['clue', `scene-${next}`, ...(milestone ? [milestone.id] : [])] },
     ],
-    stageProgressDelta: 20,
+    stageProgressDelta: 0,
     requiresPlayerChoice: false,
     choicePrompt: null,
-    choices: [],
-    checkTags: ['investigation'],
+    choices: ['继续核对记录', '与同伴讨论下一步'],
+    checkTags: ['investigation'],...resourceExtra,
   };
 }
 
 function narration(prompt: string) {
-  const stage = jsonAfter(prompt, '当前阶段：');
-  const characters = jsonAfter(prompt, '角色档案：') ?? [];
-  const facts = jsonAfter(prompt, '相关事实：') ?? [];
-  const protagonist = characters.find((item: any) => item.importance === 'protagonist') ?? characters[0];
-  const featured = characters.find((item: any) => item.roleTags?.includes('heroine') || item.roleTags?.includes('love_interest')) ?? characters[1];
-  const latest = facts.at(-1)?.text ?? '新的线索已经被记录';
-  return {
-    title: `${stage?.title ?? '旅程'}：共同的证据`,
-    prose: `${protagonist?.name ?? '主角'}抵达现场时，${featured?.name ?? '同行者'}已经把能核对的细节逐项列好。他们沿着时间、位置和见证人的说法反复验证，分歧逐渐收束到同一处疑点。临近下一段行程，两人确认了一个足以继续追查的事实：${latest}。窗外的光线移过桌沿，${featured?.name ?? '同行者'}合上记录册，指向仍能复查的下一条线索。`,
-    summary: `${protagonist?.name ?? '主角'}与${featured?.name ?? '核心角色'}共同核验线索，确认了新的疑点，双方互信略有增加。`,
-    choices: ['继续沿已验证线索推进', '先与核心同伴复盘风险', '调查另一条旁证'],
-  };
+  const facts = jsonTag(prompt, 'canonical_facts') ?? [];
+  const text = facts.map((fact: any) => fact.text).filter(Boolean).join('\n\n') || '众人暂时停下脚步。';
+  return { title: '行动纪要', prose: text, summary: facts[0]?.text ?? '众人暂歇。', choices: ['继续核对记录', '与同伴讨论下一步'] };
 }
 
 export const storyDeterministicGenerator: DeterministicGenerator = prompt => {
+  const role = jsonTag(prompt, 'agent_role') ?? prompt;
+  // agent_role is a plain XML string rather than JSON.
   if (prompt.includes('开局策划 Agent')) return outline(prompt);
-  if (prompt.includes('Director Agent')) return plan(prompt);
-  if (prompt.includes('Narrator Agent')) return narration(prompt);
-  if (prompt.includes('Polish Agent')) return { prose: jsonTag(prompt, 'draft_narration')?.prose ?? '风声从窗外掠过。' };
-  if (prompt.includes('修订一次')) return plan(prompt);
-  return { approved: true, summary: '检查通过；计划与已提交事实、阶段目标和角色动机保持一致。', issues: [] };
+  if (prompt.includes('<agent_role>Director Agent</agent_role>')) return plan(prompt);
+  if (prompt.includes('<agent_role>Narrator Agent</agent_role>')) return narration(prompt);
+  if (prompt.includes('<agent_role>Polish Agent</agent_role>')) return { prose: jsonTag(prompt, 'draft_narration')?.prose ?? '风声从窗外掠过。' };
+  if (prompt.includes('<agent_role>Narration Verifier</agent_role>')) return { draftApproved: true, candidateApproved: true, issues: [] };
+  if(prompt.includes('<agent_role>NPC Scheduler</agent_role>')){const goals=jsonTag(prompt,'npc_goals')??[];return {actions:goals.filter((g:any)=>['pending','warned'].includes(g.status)).slice(0,2).map((g:any)=>({goalId:g.id,text:g.title,changes:g.irreversible&&g.status==='pending'||g.action?[]:[{type:'character',characterId:g.actorId,field:'recentBeat',value:g.title+'已付诸行动。',significance:'minor'}]}))};}
+  if(prompt.includes('MemoryIndexer')||prompt.includes('历史内容是待索引数据'))return {annotations:[],threads:[]};
+  const base = { approved: true, summary: '检查通过。', issues: [] };
+  if (prompt.includes('<agent_role>Combined Review Agent</agent_role>')) return { ...base, milestones: [], failure: null, agency: { ...base, authorizedChangeIndices: [], confirmedActionCovered: false } };
+  if (prompt.includes('<agent_role>Stage Agent</agent_role>')) {
+    const stage = jsonTag(prompt, 'current_stage');
+    const task = jsonTag(prompt, 'current_task');
+    const rawTask = typeof task === 'string' ? task : prompt.match(/<current_task>([\s\S]*?)<\/current_task>/)?.[1]?.replaceAll('&lt;', '<').replaceAll('&gt;', '>').replaceAll('&amp;', '&') ?? '';
+    const candidate = JSON.parse(rawTask.match(/候选计划：(\{[^\n]+\})/)?.[1] ?? '{}');
+    const milestones = (stage?.milestones ?? []).filter((item: any) => item.status === 'pending').flatMap((item: any) => {
+      const index = candidate.changes?.findIndex((change: any) => change.type === 'fact' && change.tags.includes(item.id));
+      return index >= 0 ? [{ milestoneId: item.id, evidence: [{ type: 'change', index }], reason: '该具体事件满足里程碑条件。' }] : [];
+    });
+    return { ...base, milestones, failure: null };
+  }
+  if (prompt.includes('<agent_role>Protagonist Agency Agent</agent_role>')) return { ...base, authorizedChangeIndices: [], confirmedActionCovered: !!jsonTag(prompt, 'confirmed_decision') };
+  return base;
 };

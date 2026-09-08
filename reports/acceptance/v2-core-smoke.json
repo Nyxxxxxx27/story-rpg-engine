@@ -1,0 +1,201 @@
+{
+  "startedAt": "2026-09-06T12:40:01.904Z",
+  "directory": "E:\\rpg\\story-rpg-engine\\.data\\v2-smoke-00677559-3e27-46f7-989c-ca63ad37c100",
+  "provider": "codex",
+  "outline": "deterministic fixture",
+  "passed": true,
+  "storyId": "14a9b3af-d4ae-48b6-a933-a0549b532edf",
+  "hashes": {
+    "stateHash": "07d996f35e2cd08c1c5b6dd6085879b35ae45d46f21cbaf7438028522453e67f",
+    "replayHash": "07d996f35e2cd08c1c5b6dd6085879b35ae45d46f21cbaf7438028522453e67f",
+    "matches": true
+  },
+  "metrics": {
+    "scenes": 2,
+    "checkedScenes": 2,
+    "semanticReviewRate": 1,
+    "fallbackRate": 0,
+    "semanticCalls": 2,
+    "steps": [
+      {
+        "name": "agency",
+        "calls": 2,
+        "average_ms": 8276
+      },
+      {
+        "name": "assembling",
+        "calls": 2,
+        "average_ms": 2
+      },
+      {
+        "name": "character",
+        "calls": 4,
+        "average_ms": 7887.75
+      },
+      {
+        "name": "committing",
+        "calls": 2,
+        "average_ms": 68
+      },
+      {
+        "name": "continuity",
+        "calls": 2,
+        "average_ms": 7381.5
+      },
+      {
+        "name": "directing",
+        "calls": 2,
+        "average_ms": 16864.5
+      },
+      {
+        "name": "narrating",
+        "calls": 3,
+        "average_ms": 10563
+      },
+      {
+        "name": "pack",
+        "calls": 2,
+        "average_ms": 6416.5
+      },
+      {
+        "name": "polishing",
+        "calls": 3,
+        "average_ms": 9545.666666666666
+      },
+      {
+        "name": "stage",
+        "calls": 2,
+        "average_ms": 7639.5
+      },
+      {
+        "name": "summarizing",
+        "calls": 3,
+        "average_ms": 1.3333333333333333
+      },
+      {
+        "name": "verifying",
+        "calls": 3,
+        "average_ms": 6410.666666666667
+      }
+    ]
+  },
+  "scenes": [
+    {
+      "id": "b8fbb8ab-4549-4db4-8bf9-084d8e281611",
+      "turnId": "a2182162-5643-4e7b-9889-8a1600ac9f10",
+      "seq": 1,
+      "startTime": 0,
+      "endTime": 35,
+      "location": "中继站七号",
+      "title": "回放中的裂痕",
+      "prose": "中继站七号的照明维持着低亮度，舷窗外的星带被站体结构切割成数段。林序站在主控台前，指尖停留在尚未启动的检索界面上。程弥将一枚存储片放在台面，目光掠过不断闪烁的时间标记。\n\n“这里的记录被动过。”她说，“但现在还不能确定，是删除、覆盖，还是回放源本身出了问题。”\n\n主控台上并列着两条路径：一条指向中继站七号的本地缓存与实时回放，数据近在眼前，检索速度更快；另一条通往外地档案室，需要发出调阅请求，等待原始备份返回。\n\n程弥没有触碰任何按钮，只将存储片又向前推了些许。“先查近处，可能很快找到断点；查原始备份，耗时更久，但能少一些猜测。”\n\n远处传来设备换气的低沉鸣响。光标在两条路径之间无声闪烁。",
+      "summary": "林序与程弥在中继站七号发现记录存在异常，面前有速度与证据强度不同的两条核验路径。",
+      "participants": [
+        "protagonist",
+        "core-heroine"
+      ],
+      "factIds": [
+        "1da6abe8-30f5-452b-95ce-a68f461c2b87",
+        "3ea78de6-b0fd-4fca-89b2-0bf2588866cb",
+        "cd093efd-a8d7-48ff-970d-43c2c1c3c92b"
+      ],
+      "choices": [
+        "比对中继站七号的本地缓存与实时回放（较快）",
+        "请求外地档案室的原始备份并交叉核验（较慢但证据更强）"
+      ],
+      "options": [
+        {
+          "id": "option_3f2efc2b31f10e62d6e5e646",
+          "text": "比对中继站七号的本地缓存与实时回放（较快）"
+        },
+        {
+          "id": "option_5cc3ad54814ed6b9c1854630",
+          "text": "请求外地档案室的原始备份并交叉核验（较慢但证据更强）"
+        }
+      ],
+      "decisionId": "e26695cc-0e29-4ceb-a0cd-5d998aa58c3b",
+      "published": true,
+      "validation": {
+        "mode": "semantic",
+        "issues": [
+          "未获事件支持的数字：一",
+          "未获事件支持的数字：两",
+          "需核对陈述：modality:[[\"不能\"],[],[\"确定\"]]",
+          "需核对陈述：modality:[[\"没有\"],[],[]]",
+          "需核对陈述：modality:[[],[\"可能\"],[]]",
+          "需核对陈述：modality:[[],[\"猜测\"],[]]",
+          "未获事件支持的数字：一",
+          "未获事件支持的数字：两",
+          "需核对陈述：modality:[[\"不能\"],[],[\"确定\"]]",
+          "需核对陈述：modality:[[\"没有\"],[],[]]",
+          "需核对陈述：modality:[[],[\"可能\"],[]]",
+          "需核对陈述：modality:[[],[\"猜测\"],[]]"
+        ],
+        "semanticCalls": 1,
+        "repairs": 0,
+        "checkedAt": 1788698472246
+      }
+    },
+    {
+      "id": "2b07a6f8-0b17-412a-b571-9bf608bee0d3",
+      "turnId": "3096d404-357a-4c9a-a4e7-5730f6810b03",
+      "seq": 2,
+      "startTime": 35,
+      "endTime": 60,
+      "location": "中继站七号办公室",
+      "title": "三分钟的偏移",
+      "prose": "办公室的屏幕仍停在第七码记录上。原始日志的时间戳与实时回放并不重合，标注线清楚地隔开了三分钟的差异。\n\n程弥把日志编号、两组时间和截图位置逐项写入本地核验表，又停下来重新看了一遍。屏幕冷光映在她的脸上，办公室外传来中继站低沉而规律的设备声。\n\n“先保留现在能直接看到的部分。”她说，“至于这三分钟意味着什么，还需要原始备份来确认。”\n\n林序看着核验表上尚未填满的备注栏。眼前有两条路：一条通向外地档案室，另一条仍在这间办公室里，通向对现有记录的再次检查。程弥没有催促，只把笔放在桌边，等待下一步动作。",
+      "summary": "林序与程弥确认公共观测日志存在三分钟时间偏移，并完成了可复核的本地核验表。接下来需要在扩大交叉核验与先排查本地遗漏之间作出选择。",
+      "participants": [
+        "protagonist",
+        "core-heroine"
+      ],
+      "factIds": [
+        "4b376aff-b25d-492b-895d-b8567243508c",
+        "332b7b4a-cd30-46fd-8bac-d65d542b0f33",
+        "b9ff7f18-6bd7-411c-a3cb-e0dc14f5dc54",
+        "23932a56-8fc6-4118-bede-69e5e29ff065",
+        "e08051f2-9131-4ab5-b9ff-d001f708e4b9",
+        "9248d481-5004-4e2e-9b36-1cb61c8988dc",
+        "bc6f8272-f104-4b79-be1b-d521dfcef049",
+        "1962948e-368e-45dc-83b3-7afde618b070",
+        "90aa240c-aa3f-4d29-9a5c-8c4e5731703e",
+        "3e7d596a-77f6-463b-a893-1bd33ba95926"
+      ],
+      "choices": [
+        "继续申请外地档案室的原始备份并进行交叉核验",
+        "先检查本地核验表是否存在遗漏，再决定是否扩大调查范围"
+      ],
+      "options": [
+        {
+          "id": "option_fbafc8dd78ba4ae1bc5a6ce7",
+          "text": "继续申请外地档案室的原始备份并进行交叉核验"
+        },
+        {
+          "id": "option_db12d1e6f940f3e22f6544a3",
+          "text": "先检查本地核验表是否存在遗漏，再决定是否扩大调查范围"
+        }
+      ],
+      "decisionId": null,
+      "published": true,
+      "validation": {
+        "mode": "semantic",
+        "issues": [
+          "润色改变了数字或时间信息，已保留原稿。",
+          "未获事件支持的数字：两",
+          "未获事件支持的数字：一",
+          "需核对陈述：modality:[[\"尚未\"],[],[]]",
+          "需核对陈述：modality:[[\"没有\"],[],[]]",
+          "未获事件支持的数字：两",
+          "未获事件支持的数字：一",
+          "需核对陈述：modality:[[\"尚未\"],[],[]]",
+          "需核对陈述：modality:[[\"没有\"],[],[]]"
+        ],
+        "semanticCalls": 1,
+        "repairs": 0,
+        "checkedAt": 1788698565464
+      }
+    }
+  ],
+  "completedAt": "2026-09-06T12:42:45.535Z"
+}

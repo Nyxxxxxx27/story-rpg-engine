@@ -1,0 +1,1374 @@
+{
+  "startedAt": "2026-09-06T16:32:22.598Z",
+  "directory": "E:\\rpg\\story-rpg-engine\\.data\\experience-long-f6266227-e5ce-4243-a990-b1b286ed5cdf",
+  "passed": true,
+  "scenes": 200,
+  "checkpoints": [
+    {
+      "storyId": "c0f16717-d935-4fcb-af33-d4bc4048b128",
+      "checkpointId": "f8eeb03f-ec99-4348-b238-6591a59f9018",
+      "sceneSeq": 75,
+      "paused": true,
+      "sourceHash": "9361809325724a4b81a2057dc55d2f6d7c1ae9745dd153b0780a56020e860249"
+    },
+    {
+      "storyId": "f60d46a3-ed12-41d4-91fb-3fa2794634d6",
+      "checkpointId": "0ce3d9d8-07b7-4b5b-818f-eb09f9b10398",
+      "sceneSeq": 150,
+      "paused": true,
+      "sourceHash": "f49365ae7cb0245508395653e49c104d6bfe3571e2f5a41519f1b48dd60266fd"
+    }
+  ],
+  "turns": [
+    {
+      "turnId": "7570c747-7636-4fbc-aebd-b068c8d01e0d",
+      "ms": 226,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b03cbd53-d44e-4950-a9bd-ab0ccf33fbd2",
+      "ms": 170,
+      "mode": "rules"
+    },
+    {
+      "turnId": "c34f2758-1d16-46b2-876e-30d9ff80225c",
+      "ms": 183,
+      "mode": "rules"
+    },
+    {
+      "turnId": "438a0798-7d3d-45c2-ad87-cc1ff6a99297",
+      "ms": 290,
+      "mode": "rules"
+    },
+    {
+      "turnId": "fd348424-4e53-4d78-8785-f8fd00403905",
+      "ms": 272,
+      "mode": "rules"
+    },
+    {
+      "turnId": "32742a63-3bbe-483c-92de-7691a38e2cf4",
+      "ms": 192,
+      "mode": "rules"
+    },
+    {
+      "turnId": "955461fb-d2b7-443f-95e1-851bd0f9e147",
+      "ms": 150,
+      "mode": "rules"
+    },
+    {
+      "turnId": "371d384a-407b-43e2-841b-609656414c0d",
+      "ms": 420,
+      "mode": "rules"
+    },
+    {
+      "turnId": "9ae1439f-a526-432d-9a64-fa78db5a76bc",
+      "ms": 206,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b224624a-b6da-464d-b0b5-fc7a9b4a2a3e",
+      "ms": 246,
+      "mode": "rules"
+    },
+    {
+      "turnId": "23f0a56e-6274-4af3-9058-93c9c976e7e3",
+      "ms": 231,
+      "mode": "rules"
+    },
+    {
+      "turnId": "75541429-8d35-4b69-a86f-75f789574f0c",
+      "ms": 150,
+      "mode": "rules"
+    },
+    {
+      "turnId": "106924c6-5d76-4742-9de2-cb2f03055c7b",
+      "ms": 154,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d048601f-9f59-463f-ac7c-ad5349b7ea30",
+      "ms": 147,
+      "mode": "rules"
+    },
+    {
+      "turnId": "58b72ff4-f4b6-41ee-b944-ae054249228e",
+      "ms": 153,
+      "mode": "rules"
+    },
+    {
+      "turnId": "a00e80f7-8fda-46b7-87a5-f0d7ce302e5d",
+      "ms": 163,
+      "mode": "rules"
+    },
+    {
+      "turnId": "06aa3959-4808-4183-908b-3490a3cf0bbe",
+      "ms": 148,
+      "mode": "rules"
+    },
+    {
+      "turnId": "1830823c-a8d4-4a5c-868f-ec72152997cb",
+      "ms": 156,
+      "mode": "rules"
+    },
+    {
+      "turnId": "ca45de86-78ad-452d-b32b-0ee5c25b8b11",
+      "ms": 168,
+      "mode": "rules"
+    },
+    {
+      "turnId": "5c51a23f-aac9-4019-8f5b-c4a33a422e02",
+      "ms": 154,
+      "mode": "rules"
+    },
+    {
+      "turnId": "2908db33-85ad-4cd0-929b-c9789ecf57f6",
+      "ms": 191,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b5284a99-a399-4961-bef3-8d8c05fbc854",
+      "ms": 165,
+      "mode": "rules"
+    },
+    {
+      "turnId": "facb370e-33ab-4a87-b390-f64e55f2f35a",
+      "ms": 171,
+      "mode": "rules"
+    },
+    {
+      "turnId": "9fe8ef6a-2e01-424b-87c7-3f105ba63c4b",
+      "ms": 160,
+      "mode": "rules"
+    },
+    {
+      "turnId": "7372f9f2-0349-4bbd-b3b5-ac08e9b29601",
+      "ms": 152,
+      "mode": "rules"
+    },
+    {
+      "turnId": "5673de32-a877-4e4b-9452-e3799f729093",
+      "ms": 160,
+      "mode": "rules"
+    },
+    {
+      "turnId": "ed1056c8-4719-4a2a-8e82-7ff14b8a48e4",
+      "ms": 50920286,
+      "mode": "rules"
+    },
+    {
+      "turnId": "169444cd-f3bc-4712-8ff6-afeef5d940b8",
+      "ms": 183,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b2d571b9-eb89-4ead-8622-6d137ae341ba",
+      "ms": 238,
+      "mode": "rules"
+    },
+    {
+      "turnId": "a391b060-3a98-4ace-b001-2d32d4322a83",
+      "ms": 213,
+      "mode": "rules"
+    },
+    {
+      "turnId": "1ca38441-ed61-4f7e-9165-63ca89e2344a",
+      "ms": 240,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b5527a4e-15be-432a-85b1-7491208e8c31",
+      "ms": 169,
+      "mode": "rules"
+    },
+    {
+      "turnId": "97a41645-e075-4eb2-8b6f-ad5d3c62d59e",
+      "ms": 190,
+      "mode": "rules"
+    },
+    {
+      "turnId": "7b526975-3ebb-4e79-bf64-28a97c0f1f01",
+      "ms": 183,
+      "mode": "rules"
+    },
+    {
+      "turnId": "dfa85647-34d7-4784-8b45-101089bcf203",
+      "ms": 166,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b392b91a-0109-48b6-b29e-4135e2a14c19",
+      "ms": 207,
+      "mode": "rules"
+    },
+    {
+      "turnId": "54562465-7974-40a9-8ef9-7c93910436c9",
+      "ms": 200,
+      "mode": "rules"
+    },
+    {
+      "turnId": "87cba509-4b76-4e78-bb72-a2c84860bf47",
+      "ms": 203,
+      "mode": "semantic"
+    },
+    {
+      "turnId": "75a787b8-3b34-4b1e-b79d-3f3ce1bb7c44",
+      "ms": 189,
+      "mode": "semantic"
+    },
+    {
+      "turnId": "f48d5cf9-63f2-454e-8b54-bd0743ea011c",
+      "ms": 203,
+      "mode": "rules"
+    },
+    {
+      "turnId": "9448f8bc-e709-4339-82e1-8b27ecd88968",
+      "ms": 236,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b04ce49b-6771-44ef-bfdb-ee7c56fd0706",
+      "ms": 179,
+      "mode": "rules"
+    },
+    {
+      "turnId": "a4acf21f-f5bd-45eb-8ad4-a93436db840e",
+      "ms": 190,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d5709b8b-b675-4190-9096-b054c8874acb",
+      "ms": 237,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d9118597-fdeb-4c4a-a692-f10d305da980",
+      "ms": 214,
+      "mode": "rules"
+    },
+    {
+      "turnId": "07ea0fd6-8a91-4621-b0e5-3b274e1563cc",
+      "ms": 206,
+      "mode": "rules"
+    },
+    {
+      "turnId": "3e966f69-4162-45e8-94ef-2bc3bdc054e7",
+      "ms": 217,
+      "mode": "rules"
+    },
+    {
+      "turnId": "6c5085ba-38e0-4b64-96cc-d52208c1404d",
+      "ms": 200,
+      "mode": "rules"
+    },
+    {
+      "turnId": "106308fe-473f-44b2-94a0-bbb3fbea4195",
+      "ms": 233,
+      "mode": "rules"
+    },
+    {
+      "turnId": "638080a7-5ac0-4487-8b03-874e747e1e09",
+      "ms": 267,
+      "mode": "rules"
+    },
+    {
+      "turnId": "bc9726bc-eda6-4aac-861a-5aaec7384fb0",
+      "ms": 499,
+      "mode": "rules"
+    },
+    {
+      "turnId": "251e341b-632c-48cb-ba41-0dd6e1d7ab65",
+      "ms": 228,
+      "mode": "rules"
+    },
+    {
+      "turnId": "ec451f1f-0eb5-4213-805c-2b2784834d9e",
+      "ms": 252,
+      "mode": "rules"
+    },
+    {
+      "turnId": "ccfd3b72-f9c7-49d8-9cb1-1e2cd002de3b",
+      "ms": 418,
+      "mode": "rules"
+    },
+    {
+      "turnId": "c6ef8a8d-0050-44f5-88aa-b0ad35ba303e",
+      "ms": 671,
+      "mode": "rules"
+    },
+    {
+      "turnId": "bcfa8f0e-f4c8-4870-8c6d-f0cd8b918ea1",
+      "ms": 539,
+      "mode": "rules"
+    },
+    {
+      "turnId": "315b1b09-f124-46e0-909b-c464881f3a09",
+      "ms": 657,
+      "mode": "rules"
+    },
+    {
+      "turnId": "14e21edf-6117-4c83-915f-6ca0fe18d600",
+      "ms": 463,
+      "mode": "rules"
+    },
+    {
+      "turnId": "23918a3f-6be7-4995-8405-17f78a538866",
+      "ms": 352,
+      "mode": "rules"
+    },
+    {
+      "turnId": "3e25be62-a7b3-4623-8bf1-08a93aa5e32b",
+      "ms": 515,
+      "mode": "rules"
+    },
+    {
+      "turnId": "bd439ceb-9739-48c6-b497-8a64730c13fd",
+      "ms": 617,
+      "mode": "rules"
+    },
+    {
+      "turnId": "87892b43-6e7f-4ec1-9eea-f12a464fe91a",
+      "ms": 730,
+      "mode": "rules"
+    },
+    {
+      "turnId": "f472d6fc-7d95-4c13-9ad3-d35c3454ad93",
+      "ms": 378,
+      "mode": "rules"
+    },
+    {
+      "turnId": "58174c23-ca58-4bd3-ba1b-c1e09c6fbb72",
+      "ms": 289,
+      "mode": "rules"
+    },
+    {
+      "turnId": "46a74f08-9aae-4792-8d0c-0d290e33c2f8",
+      "ms": 618,
+      "mode": "rules"
+    },
+    {
+      "turnId": "eb34ac63-a07b-406d-bbcb-890cf3e126c2",
+      "ms": 455,
+      "mode": "rules"
+    },
+    {
+      "turnId": "6936de1c-e0e3-426e-b28c-26a3859eb21b",
+      "ms": 385,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b8a20dec-c0e2-4d95-9248-bff02549c192",
+      "ms": 364,
+      "mode": "rules"
+    },
+    {
+      "turnId": "4c945373-e763-4283-9ee4-beca41f89fd8",
+      "ms": 622,
+      "mode": "rules"
+    },
+    {
+      "turnId": "2b410731-496b-4006-b223-59a8fa3edb22",
+      "ms": 506,
+      "mode": "rules"
+    },
+    {
+      "turnId": "93b4211c-62a0-48b6-81ba-f86b92c3b3e3",
+      "ms": 924,
+      "mode": "rules"
+    },
+    {
+      "turnId": "67f56b38-19fa-48c3-9e5d-25f1d684b81f",
+      "ms": 858,
+      "mode": "rules"
+    },
+    {
+      "turnId": "36cd5c71-08a4-45cc-a048-211af210b150",
+      "ms": 707,
+      "mode": "rules"
+    },
+    {
+      "turnId": "e7ca3b06-7529-4a94-95e6-bb5674945ede",
+      "ms": 567,
+      "mode": "rules"
+    },
+    {
+      "turnId": "5d84f7ca-4714-46ed-a8fd-f44e1edb6747",
+      "ms": 607,
+      "mode": "semantic"
+    },
+    {
+      "turnId": "502e057a-05d4-4ed7-b677-6c1621720cc2",
+      "ms": 492,
+      "mode": "semantic"
+    },
+    {
+      "turnId": "4b3a51f6-396c-4cb3-8e5e-16f67ec88003",
+      "ms": 491,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b3f2311a-7a28-4dd2-9e3e-6ada7f706650",
+      "ms": 388,
+      "mode": "rules"
+    },
+    {
+      "turnId": "4ba71efb-7080-45e5-a256-766b0422e7b4",
+      "ms": 508,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d7fd162c-151e-4703-8688-42edfbdc8203",
+      "ms": 496,
+      "mode": "rules"
+    },
+    {
+      "turnId": "63dce2c3-65ea-4734-9b64-a84ff2144356",
+      "ms": 568,
+      "mode": "rules"
+    },
+    {
+      "turnId": "3b57e8e4-777c-4d66-9ff4-50ba0bb03000",
+      "ms": 505,
+      "mode": "rules"
+    },
+    {
+      "turnId": "e0a4845e-8a60-4d7f-a237-db5f2f60a8ca",
+      "ms": 378,
+      "mode": "rules"
+    },
+    {
+      "turnId": "8a98f6cf-5998-4256-b24c-6c94f2251d55",
+      "ms": 363,
+      "mode": "rules"
+    },
+    {
+      "turnId": "52985e4f-fef1-40eb-9374-7687f2e7d746",
+      "ms": 327,
+      "mode": "rules"
+    },
+    {
+      "turnId": "bca04188-1943-4f58-bb14-22a43b705847",
+      "ms": 329,
+      "mode": "rules"
+    },
+    {
+      "turnId": "3b403d8f-dd17-4d15-8653-d9ba0dcb93d3",
+      "ms": 325,
+      "mode": "rules"
+    },
+    {
+      "turnId": "3100f94a-742f-4e9e-a812-4f341e18befb",
+      "ms": 280,
+      "mode": "rules"
+    },
+    {
+      "turnId": "5b03cde5-5251-4d5a-92ab-0286cb4df618",
+      "ms": 285,
+      "mode": "rules"
+    },
+    {
+      "turnId": "803cc6c3-511f-4b08-b8eb-44fdf1404f8c",
+      "ms": 316,
+      "mode": "rules"
+    },
+    {
+      "turnId": "88a69957-7d4b-4f7e-8214-ffb10c87c1da",
+      "ms": 407,
+      "mode": "rules"
+    },
+    {
+      "turnId": "f342b5b7-5784-4a81-8905-5d7211d4e485",
+      "ms": 333,
+      "mode": "rules"
+    },
+    {
+      "turnId": "5d17ea94-c02c-4309-b564-b138bb2e9ddb",
+      "ms": 369,
+      "mode": "rules"
+    },
+    {
+      "turnId": "90977475-c1ab-40c2-aebb-a7936c6b920a",
+      "ms": 306,
+      "mode": "rules"
+    },
+    {
+      "turnId": "deee1754-94dc-4ce9-8acc-5f35d0a90b65",
+      "ms": 323,
+      "mode": "rules"
+    },
+    {
+      "turnId": "2f507c04-7749-45a3-b2b3-27d9f27a7805",
+      "ms": 332,
+      "mode": "rules"
+    },
+    {
+      "turnId": "22efd421-eadf-42e5-b63f-3c476d6e2791",
+      "ms": 360,
+      "mode": "rules"
+    },
+    {
+      "turnId": "1f01ac96-f450-48f4-ba43-de1ec6b14783",
+      "ms": 340,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b43ad282-8f64-4300-a777-517e1a3c7c2d",
+      "ms": 345,
+      "mode": "rules"
+    },
+    {
+      "turnId": "a3dc393b-ed45-46a6-b592-0d4aa6c9c64f",
+      "ms": 306,
+      "mode": "rules"
+    },
+    {
+      "turnId": "e594cf0a-8655-427f-b4ce-4450401fa492",
+      "ms": 334,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d84c99cd-c8bd-4622-b2f7-64bc804d7757",
+      "ms": 336,
+      "mode": "rules"
+    },
+    {
+      "turnId": "713d82fb-da08-4390-b1a9-9d4564c7092d",
+      "ms": 332,
+      "mode": "rules"
+    },
+    {
+      "turnId": "ddbe7d99-a597-4a83-8abe-bbfa4a6d1967",
+      "ms": 317,
+      "mode": "rules"
+    },
+    {
+      "turnId": "69be708e-ade3-4303-a2e3-63f8b83c456c",
+      "ms": 331,
+      "mode": "rules"
+    },
+    {
+      "turnId": "f9686e96-5035-4131-933d-43b492d64d25",
+      "ms": 359,
+      "mode": "rules"
+    },
+    {
+      "turnId": "4fb08693-f07d-4b3c-a4e9-4d586b967900",
+      "ms": 334,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d826bce5-fe19-4d48-8bac-a7e4965d368c",
+      "ms": 331,
+      "mode": "rules"
+    },
+    {
+      "turnId": "11e0e84e-abeb-4b4e-9c37-fbc952988481",
+      "ms": 344,
+      "mode": "rules"
+    },
+    {
+      "turnId": "edaee66a-6758-4b33-b758-3926e48849ef",
+      "ms": 382,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d19e4cc2-2a3b-4edb-8368-5a37cfd8d4bb",
+      "ms": 403,
+      "mode": "rules"
+    },
+    {
+      "turnId": "e74d5af8-d717-45b5-a4fe-5152dfac0118",
+      "ms": 360,
+      "mode": "semantic"
+    },
+    {
+      "turnId": "aaaf67be-628a-4677-842e-02bbb4c0ffd8",
+      "ms": 384,
+      "mode": "semantic"
+    },
+    {
+      "turnId": "6aeb55ec-dabb-48ad-aaec-d1b940568e89",
+      "ms": 380,
+      "mode": "rules"
+    },
+    {
+      "turnId": "79ac283c-5bda-456a-939a-0d43d990d0d1",
+      "ms": 505,
+      "mode": "rules"
+    },
+    {
+      "turnId": "a92998b6-8365-442f-a622-b1fbf8986f95",
+      "ms": 356,
+      "mode": "rules"
+    },
+    {
+      "turnId": "3e013317-4c57-4cf5-975a-4f2de25b5691",
+      "ms": 387,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b38dca0c-9f29-43c8-9ac9-30bbee0492b9",
+      "ms": 474,
+      "mode": "rules"
+    },
+    {
+      "turnId": "54a45d88-d36d-4159-b866-931398300e86",
+      "ms": 482,
+      "mode": "rules"
+    },
+    {
+      "turnId": "0d7e99a0-0538-4646-813e-906d23983ff2",
+      "ms": 461,
+      "mode": "rules"
+    },
+    {
+      "turnId": "824cad68-c967-4708-a7d2-e6d021d166b3",
+      "ms": 636,
+      "mode": "rules"
+    },
+    {
+      "turnId": "275f982d-b6f6-4780-b735-b8eaad1f6d44",
+      "ms": 540,
+      "mode": "rules"
+    },
+    {
+      "turnId": "8e07687e-441b-49c5-a350-d23935a18412",
+      "ms": 504,
+      "mode": "rules"
+    },
+    {
+      "turnId": "265ec9ee-325d-455d-a62f-f2fee86c3ead",
+      "ms": 381,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d8861d1e-be60-4b55-b458-98b2f254f7fc",
+      "ms": 370,
+      "mode": "rules"
+    },
+    {
+      "turnId": "df0ff8ad-c185-4a6c-8bc1-2ff6292e35a5",
+      "ms": 401,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b8919256-8a19-4c28-b839-b9ee9facc1b2",
+      "ms": 367,
+      "mode": "rules"
+    },
+    {
+      "turnId": "edbe34f6-aee3-480a-991b-5b4331987cd1",
+      "ms": 376,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d2dd5ed3-cc71-4ec5-9965-e895b27419dd",
+      "ms": 365,
+      "mode": "rules"
+    },
+    {
+      "turnId": "4613720c-2198-414e-bbb2-4a6b98b8bb1a",
+      "ms": 379,
+      "mode": "rules"
+    },
+    {
+      "turnId": "453bed57-fb59-480c-b613-bc6aac06a681",
+      "ms": 413,
+      "mode": "rules"
+    },
+    {
+      "turnId": "a7b57365-5603-45e1-9138-266b5826a1a0",
+      "ms": 371,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d32da66d-de39-494f-9edc-3f9d7a8245f9",
+      "ms": 415,
+      "mode": "rules"
+    },
+    {
+      "turnId": "9550cba3-7d86-4ab0-bfb7-f611b00b761e",
+      "ms": 386,
+      "mode": "rules"
+    },
+    {
+      "turnId": "34574dd3-d2cd-4653-9fb9-ac74a01850b7",
+      "ms": 439,
+      "mode": "rules"
+    },
+    {
+      "turnId": "9b39bd46-9367-4cc7-9112-94e7bb6f53eb",
+      "ms": 361,
+      "mode": "rules"
+    },
+    {
+      "turnId": "fb4aedd0-9b03-4ae3-9118-3e59cb6171a8",
+      "ms": 406,
+      "mode": "rules"
+    },
+    {
+      "turnId": "22f3c0a0-d845-4ca7-abc3-4ce1ad678176",
+      "ms": 401,
+      "mode": "rules"
+    },
+    {
+      "turnId": "66c3caad-7bec-437c-813c-b7880a48860b",
+      "ms": 384,
+      "mode": "rules"
+    },
+    {
+      "turnId": "742a7fd9-39db-4e54-94c5-cce86b6b9597",
+      "ms": 389,
+      "mode": "rules"
+    },
+    {
+      "turnId": "76ecf19e-38df-4c47-8716-c1dfd40c5f57",
+      "ms": 419,
+      "mode": "rules"
+    },
+    {
+      "turnId": "6a0ac6c4-b79f-4f83-ba0f-473985e5880f",
+      "ms": 408,
+      "mode": "rules"
+    },
+    {
+      "turnId": "722a1f3e-fa4a-42e8-a4b8-bcfc3bf32255",
+      "ms": 410,
+      "mode": "rules"
+    },
+    {
+      "turnId": "2e768d29-215d-49a1-b637-6fd1e286d3cc",
+      "ms": 572,
+      "mode": "rules"
+    },
+    {
+      "turnId": "e0d817f9-58db-4f2f-9c50-4d0c522e9f48",
+      "ms": 489,
+      "mode": "rules"
+    },
+    {
+      "turnId": "010de1f7-04b8-4f7c-a7a5-84a9062b7ac2",
+      "ms": 492,
+      "mode": "rules"
+    },
+    {
+      "turnId": "5bc0f485-bcdf-4dd9-8571-a5786318d463",
+      "ms": 434,
+      "mode": "rules"
+    },
+    {
+      "turnId": "f5fef7dd-aed9-46bd-bc09-583b5469c95f",
+      "ms": 421,
+      "mode": "rules"
+    },
+    {
+      "turnId": "9b66cbbb-c05e-4480-908e-edc8399c50c3",
+      "ms": 447,
+      "mode": "semantic"
+    },
+    {
+      "turnId": "88655ec8-87e2-423a-98df-4d41ab0197c5",
+      "ms": 458,
+      "mode": "semantic"
+    },
+    {
+      "turnId": "7c9d5f97-72a8-452b-b9b5-24d98742c9d9",
+      "ms": 452,
+      "mode": "rules"
+    },
+    {
+      "turnId": "9ab0ba8c-9b96-4a73-a6e3-cf7f3fb62c6d",
+      "ms": 395,
+      "mode": "rules"
+    },
+    {
+      "turnId": "1140101a-a9bf-4212-aba7-1e759c1d9771",
+      "ms": 423,
+      "mode": "rules"
+    },
+    {
+      "turnId": "e13db03a-90e6-412a-bb8a-dda2b3919587",
+      "ms": 3201,
+      "mode": "rules"
+    },
+    {
+      "turnId": "1d990a6d-0f78-470d-9d50-52395717cb7d",
+      "ms": 422,
+      "mode": "rules"
+    },
+    {
+      "turnId": "7b334448-1b72-4475-8972-e0b52b9bab7b",
+      "ms": 406,
+      "mode": "rules"
+    },
+    {
+      "turnId": "6304b38c-c06b-4081-9dcd-2f54866b4eb0",
+      "ms": 415,
+      "mode": "rules"
+    },
+    {
+      "turnId": "abcbcd87-b4ae-45fe-9580-2d516bf8cff9",
+      "ms": 434,
+      "mode": "rules"
+    },
+    {
+      "turnId": "5ded0f23-5555-40f1-bcdd-00ffc123a615",
+      "ms": 409,
+      "mode": "rules"
+    },
+    {
+      "turnId": "b347f2af-7aa1-4407-8ac3-ed4c8a7d2985",
+      "ms": 417,
+      "mode": "rules"
+    },
+    {
+      "turnId": "ed5af82f-34cd-48f8-8745-6ca43fff7d25",
+      "ms": 474,
+      "mode": "rules"
+    },
+    {
+      "turnId": "1d852c08-89da-474d-8ea6-2fc78b37ca8a",
+      "ms": 487,
+      "mode": "rules"
+    },
+    {
+      "turnId": "596ef3a0-ab2d-412a-afd6-3403e5375057",
+      "ms": 463,
+      "mode": "rules"
+    },
+    {
+      "turnId": "8767e088-7aa6-4639-9920-0b06b2e3bb1e",
+      "ms": 418,
+      "mode": "rules"
+    },
+    {
+      "turnId": "60807b1b-d9bd-4c0f-a906-d1bab2066d6c",
+      "ms": 442,
+      "mode": "rules"
+    },
+    {
+      "turnId": "6d9ab656-f6e0-4f98-98f0-073bc4a511a8",
+      "ms": 434,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d0ec68a5-c9be-4684-8532-198bfb98dde2",
+      "ms": 432,
+      "mode": "rules"
+    },
+    {
+      "turnId": "da3cbe7b-2a47-4f27-9d80-00eb963fc0ab",
+      "ms": 434,
+      "mode": "rules"
+    },
+    {
+      "turnId": "e2a3c397-2d0e-43aa-ae3d-b0e1f208a2d2",
+      "ms": 452,
+      "mode": "rules"
+    },
+    {
+      "turnId": "18565299-e280-4c7d-b2cb-5bdf121735ec",
+      "ms": 455,
+      "mode": "rules"
+    },
+    {
+      "turnId": "0fdeba0d-a93a-473c-ab05-64ca8385ca62",
+      "ms": 521,
+      "mode": "rules"
+    },
+    {
+      "turnId": "30b9dec5-7dc4-4e59-8161-843583424635",
+      "ms": 499,
+      "mode": "rules"
+    },
+    {
+      "turnId": "35752f26-ef03-456c-9e66-c54da601b1a6",
+      "ms": 492,
+      "mode": "rules"
+    },
+    {
+      "turnId": "af39cf2c-5ba2-4daa-91a1-06e058332d63",
+      "ms": 519,
+      "mode": "rules"
+    },
+    {
+      "turnId": "33c852cb-fef1-4c73-9da8-0fecbb2a06b7",
+      "ms": 530,
+      "mode": "rules"
+    },
+    {
+      "turnId": "6564351d-6f09-47ff-8936-aa4b63e0b9df",
+      "ms": 482,
+      "mode": "rules"
+    },
+    {
+      "turnId": "f67282b7-a0c4-4a1e-af00-458ee9a2ddfc",
+      "ms": 582,
+      "mode": "rules"
+    },
+    {
+      "turnId": "298a2681-b264-4499-849b-bb6691e400b5",
+      "ms": 597,
+      "mode": "rules"
+    },
+    {
+      "turnId": "db0faa2d-0df7-4478-9fa5-f644c95874a3",
+      "ms": 577,
+      "mode": "rules"
+    },
+    {
+      "turnId": "fd3bc9bd-3cdb-4ec2-bfa7-415b67fc0752",
+      "ms": 502,
+      "mode": "rules"
+    },
+    {
+      "turnId": "69956414-0a1d-4c04-9f11-227773fa0f3d",
+      "ms": 498,
+      "mode": "rules"
+    },
+    {
+      "turnId": "2180caba-4013-42da-959e-1c3741553056",
+      "ms": 520,
+      "mode": "rules"
+    },
+    {
+      "turnId": "6056ab1e-6d1f-47e5-bc0e-d031d6bd6803",
+      "ms": 490,
+      "mode": "rules"
+    },
+    {
+      "turnId": "77a5529c-7ef5-48ca-a3dc-17c5c96bbd15",
+      "ms": 492,
+      "mode": "rules"
+    },
+    {
+      "turnId": "e1a2a90e-a36c-4370-b80f-dd12d9d8e837",
+      "ms": 492,
+      "mode": "rules"
+    },
+    {
+      "turnId": "583d684b-6e00-4220-9bf3-04b80a410973",
+      "ms": 508,
+      "mode": "semantic"
+    },
+    {
+      "turnId": "d95bd4fb-db9b-4788-b67c-fddb9b4ffc1f",
+      "ms": 518,
+      "mode": "semantic"
+    },
+    {
+      "turnId": "2d772a8d-cf41-47b1-b061-9d5c9248e2cc",
+      "ms": 490,
+      "mode": "rules"
+    },
+    {
+      "turnId": "90c27629-3675-4202-bb1f-62dc981a6eb5",
+      "ms": 511,
+      "mode": "rules"
+    },
+    {
+      "turnId": "393b8b62-8e66-4bfb-9790-05f4e7d6dacf",
+      "ms": 500,
+      "mode": "rules"
+    },
+    {
+      "turnId": "77ff8da1-06c5-4cf7-8caf-fa51960dcc2c",
+      "ms": 539,
+      "mode": "rules"
+    },
+    {
+      "turnId": "711309e8-b78d-43ad-b7e6-f55b9ff05644",
+      "ms": 517,
+      "mode": "rules"
+    },
+    {
+      "turnId": "ea7cbfe3-4de8-4b40-bd94-9bc9c176259a",
+      "ms": 550,
+      "mode": "rules"
+    },
+    {
+      "turnId": "44765d3b-7dc7-482d-8736-3c6bf675e8e9",
+      "ms": 611,
+      "mode": "rules"
+    },
+    {
+      "turnId": "67158e83-e3c0-40bd-a159-099944aeaf95",
+      "ms": 611,
+      "mode": "rules"
+    },
+    {
+      "turnId": "f1c46b1a-7594-48a6-b6d1-d49cb593cd0b",
+      "ms": 618,
+      "mode": "rules"
+    },
+    {
+      "turnId": "1fa4c0c9-2c40-4e2c-95a3-790963989686",
+      "ms": 555,
+      "mode": "rules"
+    },
+    {
+      "turnId": "8431bf6a-05b9-47a8-833d-bfcee94e1cb6",
+      "ms": 558,
+      "mode": "rules"
+    },
+    {
+      "turnId": "d7ac65f7-96d9-42dc-9fd3-3f326e47d9d6",
+      "ms": 549,
+      "mode": "rules"
+    },
+    {
+      "turnId": "02df5ec1-f5bb-4601-ad5b-ba22879f141a",
+      "ms": 534,
+      "mode": "rules"
+    }
+  ],
+  "storyId": "41dc7443-5c52-4cf5-950a-ebd01ff28340",
+  "retrieval": [
+    {
+      "factId": "38ba4c1d-6a18-46e8-93a8-6dcf81419116",
+      "score": 40,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text",
+        "commitment"
+      ]
+    },
+    {
+      "factId": "b7b570f1-918a-45b2-a815-a1b4940be80e",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "d8cefc43-0fd2-494a-9a95-e4fce8d4481f",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "9d5320db-8639-4147-ac82-95f4b4b5fa74",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "54c053bb-ebd5-4104-922b-706947669a40",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "6c10f307-12be-450a-8298-bd79b9401d2d",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "c4836f06-2de5-45af-ba50-87df1cf59c1f",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "1d99e921-8414-45db-b79a-c31f192907a8",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "54104276-c939-4a9b-9492-a140d6c33fcd",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "715691a1-8328-4c63-8501-28f210391009",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "63b259a9-a631-452b-90e8-d8d9c47aad4f",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "eec43026-5973-48ff-ae22-3d5ee30de555",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "1bb1bb3e-5d22-4296-81e0-9580e4e0f0a9",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "ef60ec25-7f2d-4599-a002-9c92a1fcc604",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "2f5977ca-1366-4236-8417-ed91f0afbd5a",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    },
+    {
+      "factId": "4b3106a5-9b35-43b4-8e41-cdc1048f5b4a",
+      "score": 26,
+      "reasons": [
+        "entity:core-heroine",
+        "entity:loc_ec6580914cbbc6543622",
+        "text"
+      ]
+    }
+  ],
+  "metrics": {
+    "latency": {
+      "byAttempt": {
+        "first": {
+          "samples": 200,
+          "p50": 387,
+          "p95": 605
+        },
+        "retry": {
+          "samples": 0,
+          "p50": null,
+          "p95": null
+        },
+        "narration_recovery": {
+          "samples": 0,
+          "p50": null,
+          "p95": null
+        }
+      },
+      "phases": {
+        "assembling": {
+          "samples": 200,
+          "p50": 23,
+          "p95": 44
+        },
+        "directing": {
+          "samples": 200,
+          "p50": 27,
+          "p95": 45
+        },
+        "continuity": {
+          "samples": 32,
+          "p50": 10,
+          "p95": 35
+        },
+        "stage": {
+          "samples": 32,
+          "p50": 11,
+          "p95": 37
+        },
+        "agency": {
+          "samples": 32,
+          "p50": 12,
+          "p95": 39
+        },
+        "character": {
+          "samples": 45,
+          "p50": 12,
+          "p95": 40
+        },
+        "pack": {
+          "samples": 32,
+          "p50": 6,
+          "p95": 17
+        },
+        "committing": {
+          "samples": 200,
+          "p50": 135,
+          "p95": 225
+        },
+        "narrating": {
+          "samples": 200,
+          "p50": 4,
+          "p95": 8
+        },
+        "polishing": {
+          "samples": 200,
+          "p50": 3,
+          "p95": 7
+        },
+        "summarizing": {
+          "samples": 200,
+          "p50": 1,
+          "p95": 1
+        },
+        "combined": {
+          "samples": 168,
+          "p50": 6,
+          "p95": 14
+        },
+        "npc": {
+          "samples": 1,
+          "p50": 6,
+          "p95": 6
+        },
+        "verifying": {
+          "samples": 10,
+          "p50": 3,
+          "p95": 10
+        }
+      },
+      "total": {
+        "samples": 200,
+        "p50": 387,
+        "p95": 605
+      },
+      "queue": {
+        "samples": 200,
+        "p50": 10,
+        "p95": 21
+      },
+      "firstPublication": {
+        "samples": 200,
+        "p50": 268,
+        "p95": 462
+      }
+    },
+    "modelUsage": {
+      "calls": 952,
+      "reportedRequests": 952,
+      "tokensKnown": false,
+      "inputTokens": null,
+      "outputTokens": null
+    },
+    "scenes": 200,
+    "checkedScenes": 200,
+    "semanticReviewRate": 0.05,
+    "fallbackRate": 0,
+    "semanticCalls": 10,
+    "steps": [
+      {
+        "name": "agency",
+        "calls": 32,
+        "average_ms": 16.375
+      },
+      {
+        "name": "assembling",
+        "calls": 200,
+        "average_ms": 26.195
+      },
+      {
+        "name": "character",
+        "calls": 45,
+        "average_ms": 14.688888888888888
+      },
+      {
+        "name": "combined",
+        "calls": 168,
+        "average_ms": 7.5476190476190474
+      },
+      {
+        "name": "committing",
+        "calls": 200,
+        "average_ms": 129.75
+      },
+      {
+        "name": "continuity",
+        "calls": 32,
+        "average_ms": 14.59375
+      },
+      {
+        "name": "directing",
+        "calls": 200,
+        "average_ms": 27.395
+      },
+      {
+        "name": "narrating",
+        "calls": 200,
+        "average_ms": 4.56
+      },
+      {
+        "name": "npc",
+        "calls": 1,
+        "average_ms": 6
+      },
+      {
+        "name": "pack",
+        "calls": 32,
+        "average_ms": 7.65625
+      },
+      {
+        "name": "polishing",
+        "calls": 200,
+        "average_ms": 3.43
+      },
+      {
+        "name": "stage",
+        "calls": 32,
+        "average_ms": 15.59375
+      },
+      {
+        "name": "summarizing",
+        "calls": 200,
+        "average_ms": 0.605
+      },
+      {
+        "name": "verifying",
+        "calls": 10,
+        "average_ms": 3.9
+      }
+    ]
+  },
+  "npcCalls": 1,
+  "fullReviews": 32,
+  "combinedReviews": 168,
+  "hashes": {
+    "stateHash": "1687acf860f09e533e85df2dbb7a40a1b55d0c08dfdf18a2eb628ef0a2c5fe59",
+    "replayHash": "1687acf860f09e533e85df2dbb7a40a1b55d0c08dfdf18a2eb628ef0a2c5fe59",
+    "matches": true
+  },
+  "clock": 5855,
+  "completedAt": "2026-09-07T06:42:35.521Z"
+}

@@ -1,0 +1,58 @@
+{
+  "createdAt": "2026-09-07T06:46:17.747Z",
+  "node": "24.19.0",
+  "saveSchemaVersion": 7,
+  "fullRegression": {
+    "files": 11,
+    "passed": 52,
+    "failed": 0,
+    "source": "unit-results.json"
+  },
+  "lateRegression": {
+    "files": 3,
+    "passed": 11,
+    "failed": 0,
+    "source": "recovery-boundaries.json"
+  },
+  "uniqueUnitAndIntegrationCases": 56,
+  "browser": {
+    "channel": "chrome",
+    "startTime": "2026-09-07T06:43:47.644Z",
+    "duration": 29360.548,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0,
+    "source": "browser-results.json"
+  },
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "typecheck": true,
+    "vite": true,
+    "server": true
+  },
+  "deterministicLong": {
+    "scenes": 200,
+    "clock": 5855,
+    "hashes": {
+      "stateHash": "1687acf860f09e533e85df2dbb7a40a1b55d0c08dfdf18a2eb628ef0a2c5fe59",
+      "replayHash": "1687acf860f09e533e85df2dbb7a40a1b55d0c08dfdf18a2eb628ef0a2c5fe59",
+      "matches": true
+    },
+    "source": "experience-long.json"
+  },
+  "realLong": {
+    "scenes": 12,
+    "clock": 4370,
+    "calls": 119,
+    "fallbackRate": 0.16666666666666666,
+    "tokensKnown": false,
+    "source": "experience-real-long.json"
+  },
+  "limits": [
+    "Full regression was followed by targeted checks for four additional cases; no claim of a single 56-case full run.",
+    "Real long test uses a fixed outline and resource/rest actions; branch and NPC outcomes use deterministic integration coverage.",
+    "Natural-language consistency and implicit memory recall are not universally proven."
+  ]
+}

@@ -18,13 +18,15 @@ describe('public story boundary', () => {
 
   it('uses XML-separated prompts and blocks leaked reasoning before scene publication', async () => {
     const value = await fixture(); cleanups.push(value.close); const storyId = await createActiveStory(value, 'modern_mystery');
-    const base = deterministicProvider(storyDeterministicGenerator); let narratorPrompt = '';
+    const base = deterministicProvider(storyDeterministicGenerator); let narratorPrompt = ''; let expectedProse = '';
     const runtime = new StoryRuntime(value.store, () => ({ name: 'deterministic', async run(role: string, prompt: string, schema: any, signal?: AbortSignal) {
       if (role === 'Narrator Agent') {
-        narratorPrompt = prompt;
+        narratorPrompt = prompt; const supported = await base.run(role,prompt,schema,signal) as any; expectedProse = supported.prose;
         return schema.parse({
           title: '寄出之前',
-          prose: '<thinking>候选事实已经提交，所以现在等待玩家。</thinking>临时办公室只剩台灯亮着。草案停在发送前，是否发出仍由玩家决定。苏晚把两份记录并排放好。',
+          prose: `<thinking>候选事实已经提交，所以现在等待玩家。</thinking>${expectedProse}
+
+草案停在发送前，是否发出仍由玩家决定。`,
           summary: '结构化状态变更完成，等待玩家选择。',
           choices: ['由玩家决定是否发出', '继续核对时间记录'],
         });
@@ -37,24 +39,26 @@ describe('public story boundary', () => {
     expect(narratorPrompt).toContain('<public_story_requirements>');
     expect(narratorPrompt).toContain('<public_output_contract visibility="public">');
     expect(finished.status).toBe('completed');
-    expect(finished.scene?.prose).toBe('临时办公室只剩台灯亮着。苏晚把两份记录并排放好。');
+    expect(finished.scene?.prose).toBe(expectedProse);
     expect(finished.scene?.summary).not.toMatch(/玩家|结构化|状态变更/);
     expect(finished.scene?.choices).toEqual(['继续核对时间记录']);
     expect(containsPublicStoryLeak(finished.scene?.prose ?? '')).toBe(false);
   });
 
   it('publishes a prose-only polish while preserving all non-prose scene fields', async () => {
-    const value = await fixture(); cleanups.push(value.close); const storyId = await createActiveStory(value, 'modern_mystery'); const state = await value.store.state(storyId); const protagonist = state.characters.find(character => character.importance === 'protagonist')!; const heroine = state.characters.find(character => character.roleTags.includes('heroine'))!;
+    const value = await fixture(); cleanups.push(value.close); const storyId = await createActiveStory(value, 'modern_mystery'); const state = await value.store.state(storyId); const protagonist = state.characters.find(character => character.importance === 'protagonist')!; const heroine = state.characters.find(character => character.roleTags.includes('investigator'))!;
     const base = deterministicProvider(storyDeterministicGenerator); let polishPrompt = '';
+    const factText = `${protagonist.name}与${heroine.name}在${protagonist.location}核对了两份记录。`;
     const runtime = new StoryRuntime(value.store, () => ({ name: 'deterministic', async run(role: string, prompt: string, schema: any, signal?: AbortSignal) {
+      if (role === 'Director Agent') { const plan:any = await base.run(role,prompt,schema,signal); return schema.parse({...plan,location:protagonist.location,participants:[protagonist.id,heroine.id],changes:[{type:'fact',kind:'action',text:factText,tags:['records']}]}); }
       if (role === 'Narrator Agent') return schema.parse({ title: '灯下核对', prose: `${protagonist.name}与${heroine.name}在${protagonist.location}核对了两份记录。窗外雨声很轻。`, summary: '两人核对记录。', choices: ['查看下一份记录'] });
-      if (role === 'Polish Agent') { polishPrompt = prompt; return schema.parse({ prose: `${protagonist.name}与${heroine.name}在${protagonist.location}逐页核对两份记录。窗外的雨声轻轻掠过檐角。` }); }
+      if (role === 'Polish Agent') { polishPrompt = prompt; return schema.parse({ prose: `${protagonist.name}与${heroine.name}在${protagonist.location}核对了两份记录。窗外的雨声轻轻掠过檐角。` }); }
       return base.run(role, prompt, schema, signal);
     } }));
     const turn = await value.store.enqueueTurn(storyId, '核对两份记录。', 'test', 'polish-prose-0001'); await runtime.runTurn(turn.id); const finished = await value.store.turn(turn.id);
     expect(polishPrompt).toContain('<draft_narration>'); expect(polishPrompt).toContain('<polish_constraints>');
     expect(finished.scene).toMatchObject({ title: '灯下核对', summary: '两人核对记录。', choices: ['查看下一份记录'] });
-    expect(finished.scene?.prose).toContain('逐页核对'); expect(finished.steps.some(step => step.name === 'polishing' && step.agentRole === 'Polish Agent')).toBe(true);
+    expect(finished.scene?.prose).toContain('轻轻掠过檐角'); expect(finished.steps.some(step => step.name === 'polishing' && step.agentRole === 'Polish Agent')).toBe(true);
   });
 
   it('can disable polishing for future scenes through the versioned story setting', async () => {

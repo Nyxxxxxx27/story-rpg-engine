@@ -3,11 +3,16 @@ import { scenePlanSchema } from '../packages/contracts/index.ts';
 import { StoryRuntime } from '../packages/agent-runtime/runtime.ts';
 import type { StructuredAgentProvider } from '../packages/agent-runtime/provider.ts';
 import { createActiveStory, fixture } from './helpers.ts';
+import { rm } from 'node:fs/promises';
+import { connectDatabase } from '../packages/storage/database.ts';
+import { StoryStore } from '../packages/storage/store.ts';
+import { deterministicProvider } from '../packages/agent-runtime/provider.ts';
+import { storyDeterministicGenerator } from '../packages/agent-runtime/deterministic.ts';
 
 const cleanups: Array<() => Promise<void>> = []; afterEach(async () => { while (cleanups.length) await cleanups.pop()!(); });
 it('resumes after transactional commit without creating a duplicate scene', async () => {
   const value = await fixture(); cleanups.push(value.close); const storyId = await createActiveStory(value); const turn = await value.store.enqueueTurn(storyId, '测试恢复', 'test', 'recovery-0001'); await value.store.claim(turn.id);
-  const context = await value.store.context(storyId); const protagonist = context.characters.find(character => character.importance === 'protagonist')!; const heroine = context.characters.find(character => character.roleTags.includes('heroine'))!;
+  const context = await value.store.context(storyId); const protagonist = context.characters.find(character => character.importance === 'protagonist')!; const heroine = context.characters.find(character => character.roleTags.includes('investigator'))!;
   const plan = scenePlanSchema.parse({ title: '中断之前', objective: '提交一条可恢复的事实。', location: protagonist.location, participants: [protagonist.id, heroine.id], durationMinutes: 60, beats: ['提交事实'], changes: [{ type: 'fact', kind: 'action', text: '恢复测试事实已提交。', tags: ['recovery'] }], stageProgressDelta: 1, requiresPlayerChoice: false, choicePrompt: null, choices: [], checkTags: [] });
   await value.store.setTurnData(turn.id, 'plan', plan); await value.store.commitScene(turn.id, plan); await value.store.recordRecoverableError(turn.id, '模拟进程在提交后退出'); await value.store.recoverInterrupted(); await value.runtime.runTurn(turn.id);
   const state = await value.store.state(storyId); expect(state.scenes).toHaveLength(1); expect(state.clock).toBe(60); expect((await value.store.turn(turn.id)).status).toBe('completed');
@@ -43,3 +48,24 @@ it('coalesces concurrent outbox flush requests into one queue dispatch', async (
   try { await Promise.all(Array.from({ length: 100 }, () => value.store.flushOutbox())); } finally { boss.send = originalSend; }
   expect(sends).toBe(1); const outbox = await value.database.pool.query('SELECT dispatched FROM story_outbox'); expect(outbox.rows.every(row => row.dispatched)).toBe(true);
 });
+
+it('reopens the database after choice confirmation and dispatches exactly one consequence', async () => {
+  const value = await fixture(); let database: Awaited<ReturnType<typeof connectDatabase>> | null = value.database;
+  cleanups.push(async () => { await database?.close(); await rm(value.directory, { recursive: true, force: true }); });
+  const storyId = await createActiveStory(value); const before = await value.store.state(storyId);
+  await value.store.editStage(storyId, { ...before.activeStage!, entryCriteria: ['玩家选择调查路线'] });
+  const first = await value.store.enqueueTurn(storyId, '讨论路线', 'test', 'reopen-choice-opening'); await value.runtime.runTurn(first.id);
+  const pending = (await value.store.state(storyId)).pendingDecision!;
+  const result = await value.store.resolveChoice(storyId, { decisionId: pending.id, optionId: pending.options[0].id, source: 'test', idempotencyKey: 'reopen-choice-resolution' });
+  await value.store.flushOutbox(); const closing = database; database = null; await closing.close();
+  database = await connectDatabase({ directory: value.directory }); const store = new StoryStore(database); await store.setup();
+  const runtime = new StoryRuntime(store, () => deterministicProvider(storyDeterministicGenerator)); await runtime.start();
+  try {
+    for (let attempt = 0; attempt < 100; attempt++) { if ((await store.turn(result.continuationTurnId)).status === 'completed') break; await new Promise(resolve => setTimeout(resolve, 100)); }
+    expect((await store.turn(result.continuationTurnId)).status).toBe('completed');
+    await database.pool.query('UPDATE story_outbox SET dispatched=false WHERE turn_id=$1', [result.continuationTurnId]); await store.flushOutbox(); await runtime.runTurn(result.continuationTurnId);
+    expect((await store.state(storyId)).scenes).toHaveLength(2);
+    expect((await database.pool.query("SELECT id FROM facts WHERE story_id=$1 AND payload->>'type'='player_choice'", [storyId])).rows).toHaveLength(1);
+    expect((await store.stateHashes(storyId)).matches).toBe(true);
+  } finally { await runtime.stop(); }
+}, 60000);

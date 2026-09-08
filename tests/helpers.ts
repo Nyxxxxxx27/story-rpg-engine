@@ -9,7 +9,7 @@ import { storyDeterministicGenerator } from '../packages/agent-runtime/determini
 
 export const testConfig = (genre: 'cultivation' | 'western_fantasy' | 'science_fiction' | 'modern_mystery' | 'custom' = 'science_fiction') => ({
   title: '验收故事', genre, premise: '一次需要长期追查的异常事件。', tone: '克制且重视人物选择', pacing: 'balanced' as const,
-  worldRules: ['结果必须有证据'], terminology: {}, contentBoundaries: [], storyPacks: [genre === 'cultivation' ? 'cultivation-hewan' : genre === 'western_fantasy' ? 'western-fantasy' : 'generic-story'], advancedPrompt: '', provider: 'deterministic' as const, polishMode: 'standard' as const,
+  worldRules: ['结果必须有证据'], terminology: {}, contentBoundaries: [], storyPacks: [genre === 'cultivation' ? 'cultivation-hewan' : genre === 'western_fantasy' ? 'western-fantasy' : 'generic-story'], advancedPrompt: '', provider: 'deterministic' as const, polishMode: 'standard' as const, romanceMode: 'organic' as const, fastReview: false, rulesAtStart: false,
 });
 
 export async function fixture() {
@@ -19,5 +19,9 @@ export async function fixture() {
 }
 
 export async function createActiveStory(value: Awaited<ReturnType<typeof fixture>>, genre: Parameters<typeof testConfig>[0] = 'science_fiction') {
-  const created = await value.store.create('test', testConfig(genre), 20260901); await value.runtime.generateOutline(created.storyId, 'test'); await value.store.confirmOutline(created.storyId, 'test'); return created.storyId;
+  const created = await value.store.create('test', testConfig(genre), 20260901);
+  const generated = await value.runtime.generateOutline(created.storyId, 'test');
+  // Keep the v2 regression fixture linear; branched stories have their own acceptance tests.
+  const legacy = { ...generated, graph: undefined, assertionDefinitions: [], stages: generated.stages.slice(0,5).map(stage=>({...stage,nodeId:undefined,terminal:false})) };
+  await value.store.saveOutline(created.storyId,'test',legacy); await value.store.confirmOutline(created.storyId, 'test'); return created.storyId;
 }

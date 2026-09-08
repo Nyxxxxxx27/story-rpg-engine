@@ -19,7 +19,10 @@
     "mcp": "tsx apps/mcp/main.ts",
     "test:recovery": "vitest run tests/recovery.test.ts",
     "test:shutdown": "tsx scripts/codex-shutdown-smoke.ts",
-    "test:three-day": "tsx scripts/three-day-acceptance.ts"
+    "test:three-day": "tsx scripts/three-day-acceptance.ts",
+    "test:v2-smoke": "tsx scripts/v2-smoke.ts",
+    "test:experience-long": "tsx scripts/experience-long.ts",
+    "test:experience-real": "tsx scripts/experience-real-long.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.8",
